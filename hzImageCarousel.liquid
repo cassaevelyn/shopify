@@ -1,0 +1,607 @@
+<style>
+  .hz__image-carousel-{{ section.id }} {
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-title {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    color: {{ section.settings.title_color }};
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-description {
+    font-size: 1.2rem;
+    color: {{ section.settings.text_color }};
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-container {
+    position: relative;
+    padding: 0 40px;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-slides {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-slide {
+    flex: 0 0 auto;
+    width: calc(100% / {{ section.settings.slides_to_show }});
+    transition: all 0.3s ease;
+    padding: 10px;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-slide-inner {
+    border-radius: {{ section.settings.image_border_radius }}px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-image {
+    width: 100%;
+    aspect-ratio: {{ section.settings.image_aspect_ratio }};
+    object-fit: cover;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-content {
+    padding: 20px;
+    background-color: #fff;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-slide-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: {{ section.settings.title_color }};
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-slide-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: {{ section.settings.text_color }};
+    flex-grow: 1;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-slide-link {
+    margin-top: 15px;
+    display: inline-flex;
+    align-items: center;
+    color: {{ section.settings.link_color }};
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-slide-link:hover {
+    color: {{ section.settings.link_hover_color }};
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-slide-link-icon {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-slide-link:hover .hz__carousel-slide-link-icon {
+    transform: translateX(3px);
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: {{ section.settings.arrow_bg_color }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-arrow:hover {
+    background-color: {{ section.settings.arrow_hover_bg_color }};
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-arrow svg {
+    width: 20px;
+    height: 20px;
+    color: {{ section.settings.arrow_color }};
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-prev {
+    left: 0;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-next {
+    right: 0;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 10px;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: {{ section.settings.dot_color }};
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .hz__image-carousel-{{ section.id }} .hz__carousel-dot.active {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .hz__image-carousel-{{ section.id }} {
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+    
+    .hz__image-carousel-{{ section.id }} .hz__carousel-title {
+      font-size: 2.5rem;
+    }
+    
+    .hz__image-carousel-{{ section.id }} .hz__carousel-description {
+      font-size: 1rem;
+    }
+    
+    .hz__image-carousel-{{ section.id }} .hz__carousel-slide {
+      width: calc(100% / {{ section.settings.slides_to_show_mobile }});
+    }
+    
+    .hz__image-carousel-{{ section.id }} .hz__carousel-slide-title {
+      font-size: 1.1rem;
+    }
+    
+    .hz__image-carousel-{{ section.id }} .hz__carousel-slide-text {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<section class="hz__image-carousel-{{ section.id }}">
+  <div class="hz__carousel-container">
+    {% if section.settings.title != blank or section.settings.description != blank %}
+      <div class="hz__carousel-header">
+        {% if section.settings.title != blank %}
+          <h2 class="hz__carousel-title">{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div class="hz__carousel-description">{{ section.settings.description }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    <div class="hz__carousel-slides hz__carousel-slides-{{ section.id }}">
+      {% for block in section.blocks %}
+        {% if block.type == 'slide' %}
+          <div class="hz__carousel-slide">
+            <div class="hz__carousel-slide-inner">
+              {% if block.settings.image != blank %}
+                <img 
+                  src="{{ block.settings.image | img_url: 'master' }}" 
+                  alt="{{ block.settings.title | escape }}" 
+                  class="hz__carousel-image"
+                  loading="lazy"
+                >
+              {% endif %}
+              
+              <div class="hz__carousel-content">
+                {% if block.settings.title != blank %}
+                  <h3 class="hz__carousel-slide-title">{{ block.settings.title }}</h3>
+                {% endif %}
+                
+                {% if block.settings.text != blank %}
+                  <div class="hz__carousel-slide-text">{{ block.settings.text }}</div>
+                {% endif %}
+                
+                {% if block.settings.link_text != blank and block.settings.link_url != blank %}
+                  <a href="{{ block.settings.link_url }}" class="hz__carousel-slide-link">
+                    {{ block.settings.link_text }}
+                    <span class="hz__carousel-slide-link-icon">
+                      <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 5H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 1L13 5L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.show_arrows %}
+      <div class="hz__carousel-prev hz__carousel-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="hz__carousel-next hz__carousel-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    {% endif %}
+    
+    {% if section.settings.show_dots %}
+      <div class="hz__carousel-dots"></div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  $(document).ready(function(){
+    $('.hz__carousel-slides-{{ section.id }}').slick({
+      slidesToShow: {{ section.settings.slides_to_show }},
+      slidesToScroll: 1,
+      autoplay: {{ section.settings.autoplay }},
+      autoplaySpeed: {{ section.settings.autoplay_speed }},
+      dots: {{ section.settings.show_dots }},
+      arrows: {{ section.settings.show_arrows }},
+      prevArrow: $('.hz__image-carousel-{{ section.id }} .hz__carousel-prev'),
+      nextArrow: $('.hz__image-carousel-{{ section.id }} .hz__carousel-next'),
+      appendDots: $('.hz__image-carousel-{{ section.id }} .hz__carousel-dots'),
+      customPaging: function(slider, i) {
+        return '<div class="hz__carousel-dot"></div>';
+      },
+      infinite: true,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: {{ section.settings.slides_to_show_tablet }},
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: {{ section.settings.slides_to_show_mobile }},
+            slidesToScroll: 1
+          }
+        }
+      ]
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Image Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Image Carousel"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Showcase your content with this beautiful carousel.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3,
+      "label": "Slides to show - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "label": "Slides to show - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_mobile",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 1,
+      "label": "Slides to show - Mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "default": 5000,
+      "label": "Autoplay speed (ms)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show dots",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "1:1 (Square)"
+        },
+        {
+          "value": "3/2",
+          "label": "3:2"
+        },
+        {
+          "value": "4/3",
+          "label": "4:3"
+        },
+        {
+          "value": "16/9",
+          "label": "16:9"
+        }
+      ],
+      "default": "16/9"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 10,
+      "label": "Image border radius (px)"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "arrow_bg_color",
+      "label": "Arrow background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_bg_color",
+      "label": "Arrow hover background color",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Dot color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Section Background"
+    },
+    {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 15
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Slide Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Share information about your brand, products, or services.</p>"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "Learn More"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Image Carousel",
+      "category": "image",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,345 @@
+<style>
+  .hz__hero-video-{{ section.id }}{
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    margin-bottom: 60px;
+  }
+  .hz__hero-video-{{ section.id }} .video-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  .hz__hero-video-{{ section.id }} .video-desktop,
+  .hz__hero-video-{{ section.id }} .video-mobile {
+    width: 100%;
+    height: 100%;
+  }
+  .hz__hero-video-{{ section.id }} .video-desktop video,
+  .hz__hero-video-{{ section.id }} .video-mobile video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hz__hero-video-{{ section.id }} .video-mobile {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    .hz__hero-video-{{ section.id }} .video-desktop {
+      display: none;
+    }
+    .hz__hero-video-{{ section.id }} .video-mobile {
+      display: block;
+    }
+  }
+  .hz__hero-video-{{ section.id }} .__hero-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    color: {{ section.settings.text_color }};
+    align-items: center;
+    justify-content: center;
+  }
+  .hz__hero-video-{{ section.id }} .__hero-content h1 {
+    font-size: 45px;
+    margin-bottom: 1rem;
+  }
+  .hz__hero-video-{{ section.id }} .__hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .hz__hero-video-{{ section.id }} .custom-cta-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    padding: 8px 10px 8px 20px;
+    border-radius: 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+  }
+  .hz__hero-video-{{ section.id }} .custom-cta-button .cta-text {
+    margin-inline-end: 30px;
+    font-size: 1.7rem;
+    font-family: 'PP Fragment, Sans Regular';
+  }
+  .hz__hero-video-{{ section.id }} .custom-cta-button:hover {
+    transform: scale(1.03);
+  }
+  .hz__hero-video-{{ section.id }}::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 85px;
+    background: linear-gradient(to top, white 0%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .hz__hero-video-{{ section.id }} .custom-cta-button-desktop {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .hz__hero-video-{{ section.id }} .custom-cta-button-desktop a {
+    display: inline-flex;
+    align-items: center;
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    padding: 8px 10px 8px 20px;
+    border-radius: 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+  }
+  .hz__hero-video-{{ section.id }} .custom-cta-button-desktop a .cta-text {
+    margin-inline-end: 30px;
+    font-size: 1.7rem;
+    font-family: 'PP Fragment, Sans Regular';
+  }
+  @media (max-width: 768px) {
+    .hz__hero-video-{{ section.id }} .custom-cta-button-desktop {
+      display: none;
+    }
+    .hz__hero-video-{{ section.id }} .__hero-content .custom-cta-button {
+      display: inline-flex;
+    }
+    .hz__hero-video-{{ section.id }} .__hero-content {
+      align-items: start;
+      justify-content: center;
+      text-align: center;
+    }
+    .hz__hero-video-{{ section.id }} .__hero-content h1 {
+      font-size: 42px;
+      text-align: start;
+    }
+    .hz__hero-video-{{ section.id }} .__hero-content p {
+      text-align: start;
+      line-height: 1.3;
+    }
+  }
+  @media (min-width: 800px) and (min-height: 800px) {
+    .hz__hero-video-{{ section.id }} .__hero-content h1 {
+      font-size: 70px;
+    }
+  }
+</style>
+
+<div id="custom-hero-banner-{{ section.id }}" class="hz__hero-video-{{ section.id }} fade-in">
+  <div class="video-wrapper">
+    {% if section.settings.video_desktop != blank %}
+      <div class="video-desktop">
+        <video playsinline="true" autoplay="autoplay" loop="loop" muted="muted" preload="auto" poster="{{ section.settings.desktop_poster_image | img_url: '2200x' }}">
+          <source src="{{ section.settings.video_desktop }}" type="video/mp4">
+          {% if section.settings.desktop_poster_image != blank %}
+            <img src="{{ section.settings.desktop_poster_image | img_url: '2200x' }}" alt="{{ section.settings.heading }}">
+          {% endif %}
+        </video>
+      </div>
+    {% endif %}
+    
+    {% if section.settings.video_mobile != blank %}
+      <div class="video-mobile">
+        <video playsinline="true" autoplay="autoplay" loop="loop" muted="muted" preload="auto" poster="{{ section.settings.mobile_poster_image | img_url: '770x' }}">
+          <source src="{{ section.settings.video_mobile }}" type="video/mp4">
+          {% if section.settings.mobile_poster_image != blank %}
+            <img src="{{ section.settings.mobile_poster_image | img_url: '770x' }}" alt="{{ section.settings.heading }}">
+          {% endif %}
+        </video>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="__hero-content">
+    <div>
+      <h1>{{ section.settings.heading }}</h1>
+      <p>{{ section.settings.subtext }}</p>
+    </div>
+    <a href="{{ section.settings.button_link }}" class="custom-cta-button">
+      <span class="cta-text">{{ section.settings.button_text }}</span>
+      <svg width="52" height="36" viewBox="0 0 52 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="36" rx="18" fill="{{ section.settings.button_icon_bg_color }}"/>
+        <path d="M13 18H39" stroke="{{ section.settings.button_icon_stroke_color }}" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M31 10L39 18L31 26" stroke="{{ section.settings.button_icon_stroke_color }}" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="custom-cta-button-desktop">
+    <a href="{{ section.settings.button_link }}">
+      <span class="cta-text">{{ section.settings.button_text }}</span>
+      <svg width="52" height="36" viewBox="0 0 52 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="36" rx="18" fill="{{ section.settings.button_icon_bg_color }}"/>
+        <path d="M13 18H39" stroke="{{ section.settings.button_icon_stroke_color }}" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M31 10L39 18L31 26" stroke="{{ section.settings.button_icon_stroke_color }}" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+  const section = document.getElementById("custom-hero-banner-{{ section.id }}");
+  if (!section) return;
+
+  const heroContent = section.querySelector('.__hero-content');
+  const announcement = document.querySelector('.announcement-bar-section');
+  const header = document.querySelector('header.header');
+
+  function setTopPadding() {
+    const announcementHeight = announcement ? announcement.offsetHeight : 0;
+    const headerHeight = header ? header.offsetHeight : 0;
+    heroContent.style.paddingTop = `${announcementHeight + headerHeight}px`;
+  }
+
+  function setHeroHeight() {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const desiredVH = isMobile ? 1 : 1;
+    const pixels = Math.round(window.innerHeight * desiredVH);
+    section.style.height = `${pixels}px`;
+    setContentHeight(pixels);
+  }
+
+  function setContentHeight(sectionPixels) {
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const desiredVH = isMobile ? 0.52 : 0.4;
+
+    const contentPx = Math.round(sectionPixels * desiredVH);
+    heroContent.style.height = `${contentPx}px`;
+  }
+
+  setTopPadding();
+  setHeroHeight();
+  section.classList.add('fade-in');
+
+  let lastWidth = window.innerWidth;
+  window.addEventListener("resize", () => {
+    const w = window.innerWidth;
+    if (w !== lastWidth) {
+      lastWidth = w;
+      setTopPadding();
+      setHeroHeight();
+    }
+  });
+  window.addEventListener("orientationchange", () => {
+    setTopPadding();
+    setHeroHeight();
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Hero Video",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video Content"
+    },
+    {
+      "type": "url",
+      "id": "video_desktop",
+      "label": "Desktop Video URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_poster_image",
+      "label": "Desktop Poster Image",
+      "info": "Shown while video is loading or if video cannot be played"
+    },
+    {
+      "type": "url",
+      "id": "video_mobile",
+      "label": "Mobile Video URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_poster_image",
+      "label": "Mobile Poster Image",
+      "info": "Shown while video is loading or if video cannot be played"
+    },
+    {
+      "type": "header",
+      "content": "Text Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Feel-good Tonics"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Crafted to enhance any moment from AM to PM"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Feel the difference"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_icon_bg_color",
+      "label": "Button Icon Background Color",
+      "default": "#E3F98A"
+    },
+    {
+      "type": "color",
+      "id": "button_icon_stroke_color",
+      "label": "Button Icon Stroke Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Hero Video",
+      "category": "hero"
+    }
+  ]
+}
+{% endschema %}

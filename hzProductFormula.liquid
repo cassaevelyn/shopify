@@ -1,0 +1,516 @@
+<style>
+  .hz__product-formula-{{ section.id }} {
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-title {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    color: {{ section.settings.title_color }};
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-description {
+    font-size: 1.2rem;
+    color: {{ section.settings.text_color }};
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-image {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-text {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-ingredients {
+    margin-bottom: 30px;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-ingredients-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: {{ section.settings.title_color }};
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-ingredients-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-ingredient {
+    display: flex;
+    align-items: center;
+    background-color: {{ section.settings.ingredient_bg_color }};
+    padding: 12px 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-ingredient:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-ingredient-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-ingredient-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: {{ section.settings.text_color }};
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-benefits {
+    margin-top: 20px;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-benefits-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: {{ section.settings.title_color }};
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-benefits-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-benefit {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-benefit-icon {
+    margin-right: 10px;
+    color: {{ section.settings.accent_color }};
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-benefit-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: {{ section.settings.text_color }};
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-cta {
+    margin-top: 30px;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  
+  .hz__product-formula-{{ section.id }} .hz__formula-button-icon {
+    margin-left: 10px;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .hz__product-formula-{{ section.id }} {
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+    
+    .hz__product-formula-{{ section.id }} .hz__formula-title {
+      font-size: 2.5rem;
+    }
+    
+    .hz__product-formula-{{ section.id }} .hz__formula-description {
+      font-size: 1rem;
+    }
+    
+    .hz__product-formula-{{ section.id }} .hz__formula-content {
+      flex-direction: column;
+    }
+    
+    .hz__product-formula-{{ section.id }} .hz__formula-image {
+      margin-bottom: 30px;
+    }
+    
+    .hz__product-formula-{{ section.id }} .hz__formula-ingredients-title,
+    .hz__product-formula-{{ section.id }} .hz__formula-benefits-title {
+      font-size: 1.5rem;
+    }
+    
+    .hz__product-formula-{{ section.id }} .hz__formula-ingredients-list {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .hz__product-formula-{{ section.id }} .hz__formula-ingredient-name {
+      font-size: 0.9rem;
+    }
+    
+    .hz__product-formula-{{ section.id }} .hz__formula-benefit-text {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<section class="hz__product-formula-{{ section.id }}">
+  <div class="hz__formula-container">
+    <div class="hz__formula-header">
+      <h2 class="hz__formula-title">{{ section.settings.title }}</h2>
+      <div class="hz__formula-description">{{ section.settings.description }}</div>
+    </div>
+    
+    <div class="hz__formula-content">
+      <div class="hz__formula-image">
+        {% if section.settings.main_image != blank %}
+          <img src="{{ section.settings.main_image | img_url: 'master' }}" alt="{{ section.settings.title }}" loading="lazy">
+        {% endif %}
+      </div>
+      
+      <div class="hz__formula-text">
+        <div class="hz__formula-ingredients">
+          <h3 class="hz__formula-ingredients-title">{{ section.settings.ingredients_title }}</h3>
+          <div class="hz__formula-ingredients-list">
+            {% for block in section.blocks %}
+              {% if block.type == 'ingredient' %}
+                <div class="hz__formula-ingredient">
+                  <div class="hz__formula-ingredient-icon">
+                    {% if block.settings.icon != blank %}
+                      {{ block.settings.icon }}
+                    {% else %}
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2Z" stroke="{{ section.settings.accent_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 14L10 10" stroke="{{ section.settings.accent_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 6H10.01" stroke="{{ section.settings.accent_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    {% endif %}
+                  </div>
+                  <div class="hz__formula-ingredient-name">{{ block.settings.name }}</div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        
+        <div class="hz__formula-benefits">
+          <h3 class="hz__formula-benefits-title">{{ section.settings.benefits_title }}</h3>
+          <ul class="hz__formula-benefits-list">
+            {% for block in section.blocks %}
+              {% if block.type == 'benefit' %}
+                <li class="hz__formula-benefit">
+                  <div class="hz__formula-benefit-icon">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M13.3334 4L6.00002 11.3333L2.66669 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="hz__formula-benefit-text">{{ block.settings.text }}</div>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+        
+        {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+          <div class="hz__formula-cta">
+            <a href="{{ section.settings.button_link }}" class="hz__formula-button">
+              {{ section.settings.button_text }}
+              <span class="hz__formula-button-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.33331 8H12.6666" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8 3.33337L12.6667 8.00004L8 12.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Formula",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Pure fun formulated"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Naturally extracted from the highest-quality ingredients, each of our feel-good tonics contains a potent blend of naturally occurring compounds—craft extracted, purified, and made instantly bioavailable through proprietary ultra-sonic acoustic micronization technology.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Image"
+    },
+    {
+      "type": "text",
+      "id": "ingredients_title",
+      "label": "Ingredients Title",
+      "default": "Key Ingredients"
+    },
+    {
+      "type": "text",
+      "id": "benefits_title",
+      "label": "Benefits Title",
+      "default": "Benefits"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Experience now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#E3F98A"
+    },
+    {
+      "type": "color",
+      "id": "ingredient_bg_color",
+      "label": "Ingredient Background Color",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#E3F98A"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Section Background"
+    },
+    {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 15
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Ingredient Name",
+          "default": "Hemp-derived THC"
+        },
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon HTML",
+          "info": "Optional custom icon HTML"
+        }
+      ]
+    },
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Benefit Text",
+          "default": "Fast-acting effects within minutes"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Product Formula",
+      "category": "product",
+      "blocks": [
+        {
+          "type": "ingredient"
+        },
+        {
+          "type": "ingredient"
+        },
+        {
+          "type": "ingredient"
+        },
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "benefit"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

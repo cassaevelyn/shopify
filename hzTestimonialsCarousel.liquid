@@ -1,0 +1,509 @@
+<style>
+  .hz__testimonials-carousel-{{ section.id }} {
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonials-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonials-title {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    color: {{ section.settings.clr }};
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonials-subtext {
+    font-size: 1.2rem;
+    color: {{ section.settings.clr }};
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonials-slides {
+    position: relative;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonials-slide {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonials-slide:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-info {
+    flex: 1;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 5px;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-stars {
+    color: #FFD700;
+    font-size: 1.2rem;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-product {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-product-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 15px;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-product-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .slick-prev,
+  .hz__testimonials-carousel-{{ section.id }} .slick-next {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 10;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .slick-prev:before,
+  .hz__testimonials-carousel-{{ section.id }} .slick-next:before {
+    color: #333;
+    font-size: 20px;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .slick-dots {
+    bottom: -40px;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .slick-dots li button:before {
+    font-size: 12px;
+    color: {{ section.settings.clr }};
+    opacity: 0.3;
+  }
+  
+  .hz__testimonials-carousel-{{ section.id }} .slick-dots li.slick-active button:before {
+    opacity: 1;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .hz__testimonials-carousel-{{ section.id }} {
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+    
+    .hz__testimonials-carousel-{{ section.id }} .hz__testimonials-title {
+      font-size: 2.5rem;
+    }
+    
+    .hz__testimonials-carousel-{{ section.id }} .hz__testimonials-subtext {
+      font-size: 1rem;
+    }
+    
+    .hz__testimonials-carousel-{{ section.id }} .hz__testimonial-content {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<section class="hz__testimonials-carousel-{{ section.id }}">
+  <div class="hz__testimonials-inner {{ section.settings.content_width }}">
+    <div class="hz__testimonials-header">
+      <h2 class="hz__testimonials-title hz__titleSecondary" style="color: {{ section.settings.clr }}">
+        {{ section.settings.title }}
+      </h2>
+      <p class="hz__testimonials-subtext hz__subtext" style="color: {{ section.settings.clr }}">
+        {{ section.settings.subtext }}
+      </p>
+    </div>
+    <div class="hz__testimonials-body">
+      <div class="hz__testimonials-slides hz__testimonials-slides-{{ section.id }}">
+        {% for block in section.blocks %}
+          <div class="hz__testimonials-slide hz__testimonials-slide-{{ block.id }}">
+            <div class="hz__testimonial-header">
+              {% if block.settings.avatar != blank %}
+                <div class="hz__testimonial-avatar">
+                  <img src="{{ block.settings.avatar | img_url: '120x120', crop: 'center' }}" alt="{{ block.settings.name }}">
+                </div>
+              {% endif %}
+              <div class="hz__testimonial-info">
+                <h4 class="hz__testimonial-name">{{ block.settings.name }}</h4>
+                <div class="hz__testimonial-stars">
+                  {% if block.settings.stars != blank %}
+                    {{ block.settings.stars }}
+                  {% else %}
+                    ★★★★★
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="hz__testimonial-content">
+              {{ block.settings.content }}
+            </div>
+            {% if block.settings.product_image != blank %}
+              <div class="hz__testimonial-product">
+                <div class="hz__testimonial-product-image">
+                  <img src="{{ block.settings.product_image | img_url: '100x100', crop: 'center' }}" alt="{{ block.settings.product_name }}">
+                </div>
+                <div class="hz__testimonial-product-name">
+                  {{ block.settings.product_name }}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  $(document).ready(function(){
+    $('.hz__testimonials-slides-{{ section.id }}').slick({
+      slidesToShow: {{ section.settings.slides_to_show }},
+      slidesToScroll: 1,
+      autoplay: {{ section.settings.autoplay }},
+      autoplaySpeed: {{ section.settings.autoplay_speed }},
+      dots: {{ section.settings.show_dots }},
+      arrows: {{ section.settings.show_arrows }},
+      infinite: true,
+      cssEase: 'linear',
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: {{ section.settings.slides_to_show_tablet }},
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: {{ section.settings.slides_to_show_mobile }},
+            slidesToScroll: 1,
+            dots: true
+          }
+        }
+      ]
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Testimonials Carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__contentWidth_ter"
+        }
+      ],
+      "default": "hz__contentWidth_pri"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 112
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 34
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 36
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 108
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Section Background"
+    },
+    {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default": "#F4FBFF"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default": "What people are saying"
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Subtext",
+      "id": "subtext",
+      "default": "See what our customers have to say about their experience with our products"
+    },
+    {
+      "type": "color",
+      "label": "Content Color",
+      "id": "clr",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "range",
+      "label": "Slides to Show - Desktop",
+      "id": "slides_to_show",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "label": "Slides to Show - Tablet",
+      "id": "slides_to_show_tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "label": "Slides to Show - Mobile",
+      "id": "slides_to_show_mobile",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "label": "Autoplay",
+      "id": "autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "label": "Autoplay Speed (ms)",
+      "id": "autoplay_speed",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "default": 5000
+    },
+    {
+      "type": "checkbox",
+      "label": "Show Dots",
+      "id": "show_dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "label": "Show Arrows",
+      "id": "show_arrows",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Avatar Image",
+          "id": "avatar"
+        },
+        {
+          "type": "text",
+          "label": "Name",
+          "id": "name",
+          "default": "Customer Name"
+        },
+        {
+          "type": "html",
+          "label": "Stars Rating HTML",
+          "id": "stars",
+          "info": "Use HTML to customize the stars display"
+        },
+        {
+          "type": "richtext",
+          "label": "Testimonial Content",
+          "id": "content",
+          "default": "<p>Share what your customers are saying about your products or services.</p>"
+        },
+        {
+          "type": "image_picker",
+          "label": "Product Image",
+          "id": "product_image"
+        },
+        {
+          "type": "text",
+          "label": "Product Name",
+          "id": "product_name",
+          "default": "Product Name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Testimonials Carousel",
+      "category": "testimonial",
+      "blocks": [
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,165 @@
+<style>
+  .hz__image-with-link-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+  .hz__image-with-link-{{ section.id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+    {% if section.settings.border_radius > 0 %}
+      border-radius: {{ section.settings.border_radius }}px;
+    {% endif %}
+    {% if section.settings.add_shadow %}
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    {% endif %}
+  }
+  .hz__image-with-link-{{ section.id }} a {
+    display: block;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+  {% if section.settings.hover_effect %}
+    .hz__image-with-link-{{ section.id }} a:hover {
+      transform: scale(1.02);
+    }
+  {% endif %}
+  
+  @media (max-width: 767px) {
+    .hz__image-with-link-{{ section.id }} {
+      margin-top: {{ section.settings.margin_top_mobile }}px;
+      margin-bottom: {{ section.settings.margin_bottom_mobile }}px;
+    }
+  }
+</style>
+
+<div class="hz__image-with-link-{{ section.id }} page-width">
+  {% if section.settings.link_url != blank %}
+    <a href="{{ section.settings.link_url }}" {% if section.settings.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
+  {% endif %}
+    
+  {% if section.settings.image != blank %}
+    <img 
+      src="{{ section.settings.image | img_url: 'master' }}" 
+      alt="{{ section.settings.image.alt | default: section.settings.alt_text }}"
+      loading="lazy"
+      width="{{ section.settings.image.width }}"
+      height="{{ section.settings.image.height }}"
+    >
+  {% endif %}
+  
+  {% if section.settings.link_url != blank %}
+    </a>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Image with Link",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "alt_text",
+      "label": "Alt text",
+      "default": "Image with link",
+      "info": "Describe the image for screen readers. Leave blank if the image is purely decorative."
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_in_new_tab",
+      "label": "Open link in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "add_shadow",
+      "label": "Add shadow",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_effect",
+      "label": "Enable hover effect",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin top",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin bottom",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin top (mobile)",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin bottom (mobile)",
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Image with Link",
+      "category": "image"
+    }
+  ]
+}
+{% endschema %}

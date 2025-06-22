@@ -1,0 +1,322 @@
+<style>
+  .hz__bundle-section-{{ section.id }} {
+    margin-bottom: 40px !important;
+  }
+
+  .hz__bundle-hero-{{ section.id }} {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 50px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 1rem 5rem 5rem;
+    box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .hz__no-link-{{ section.id }} {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .hz__bundle-hero-text-{{ section.id }} {
+    max-width: 60%;
+    flex: 1;
+    z-index: 0;
+  }
+
+  .hz__bundle-hero-text-{{ section.id }} h2,
+  .hz__card-text-{{ section.id }} h3 {
+    font-size: 48px;
+    margin-bottom: 2rem;
+    font-family: "PP Eiko Regular" !important;
+    text-align: start;
+    line-height: .9;
+  }
+
+  .hz__bundle-hero-text-{{ section.id }} p {
+    font-size: 16px;
+    color: #333;
+    max-width: 60%;
+    text-align: start;
+    line-height: 1.1em;
+  }
+
+  .hz__bundle-hero-img-{{ section.id }} {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    left: 0;
+    right: 0;
+    object-fit: cover;
+    max-width: unset;
+  }
+
+  .hz__desktop-only-{{ section.id }} {
+    display: block;
+  }
+
+  .hz__mobile-only-{{ section.id }} {
+    display: none;
+  }
+
+  .hz__bundle-options-{{ section.id }} {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .hz__bundle-card-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem 2rem 1rem 2rem;
+    background: linear-gradient(180deg, #DEF3FA 0%, #EACCFF 100%),
+                linear-gradient(180deg, #EAEBF7 0%, #EEEFF8 40%, #DADEEC 100%);
+    box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.1);
+    flex: 1 1 30%;
+    transition: transform 0.3s ease;
+    border-radius: 50px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .hz__bundle-card-{{ section.id }}:hover {
+    transform: scale(1.02);
+  }
+
+  .hz__bundle-card-{{ section.id }} img {
+    max-width: 100px;
+    margin-right: 2rem;
+    height: auto;
+    transform: scale(1.14);
+  }
+
+  .hz__card-text-{{ section.id }} {
+    text-align: left;
+  }
+
+  .hz__card-text-{{ section.id }} h3 {
+    margin: 0 !important;
+    font-size: 34px;
+  }
+
+  .hz__bundle-card-{{ section.id }} p {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-top: 8px;
+  }
+
+  .hz__bundle-card-{{ section.id }} p .hz__arrow-{{ section.id }} {
+    display: flex;
+    margin-inline-start: 10px;
+  }
+
+  .hz__arrow-{{ section.id }} svg {
+    width: 9px;
+    height: 17px;
+  }
+
+  @media (max-width: 768px) {
+    .hz__bundle-hero-{{ section.id }} {
+      flex-direction: column;
+      text-align: center;
+      padding: 4rem 1.5rem 4rem 2.5rem;
+    }
+
+    .hz__desktop-only-{{ section.id }} {
+      display: none;
+    }
+
+    .hz__mobile-only-{{ section.id }} {
+      display: block;
+    }
+
+    .hz__bundle-hero-text-{{ section.id }} {
+      max-width: 65%;
+    }
+
+    .hz__bundle-hero-text-{{ section.id }} h2{
+      font-size: 34px !important;
+    }
+
+    .hz__card-text-{{ section.id }} h3  {
+      font-size: 30px !important;
+    }
+
+    .hz__bundle-hero-text-{{ section.id }} p {
+      max-width: unset;
+      font-size: 13px;
+    }
+
+    .hz__bundle-card-{{ section.id }} {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: left;
+      padding: 0rem 1rem 0rem 2rem;
+      width: 100%;
+    }
+
+    .hz__bundle-card-{{ section.id }} img {
+      margin: 0 1.5rem 0 0;
+      max-width: 80px;
+    }
+
+    .hz__card-text-{{ section.id }} p {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hz__bundle-options-{{ section.id }} {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hz__bundle-card-{{ section.id }} {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="hz__bundle-section-{{ section.id }} page-width">
+  <a href="{{ section.settings.hero_link }}" class="hz__bundle-hero-{{ section.id }} {% if section.settings.hero_link == blank %}hz__no-link-{{ section.id }}{% endif %}">
+    {% if section.settings.hero_image_desktop != blank %}
+      <img src="{{ section.settings.hero_image_desktop | img_url: 'master' }}" alt="Hero Desktop Image" class="hz__bundle-hero-img-{{ section.id }} hz__desktop-only-{{ section.id }}">
+    {% endif %}
+    
+    {% if section.settings.hero_image_mobile != blank %}
+      <img src="{{ section.settings.hero_image_mobile | img_url: 'master' }}" alt="Hero Mobile Image" class="hz__bundle-hero-img-{{ section.id }} hz__mobile-only-{{ section.id }}">
+    {% endif %}
+
+    <div class="hz__bundle-hero-text-{{ section.id }}">
+      <h2>
+        {{ section.settings.hero_title }}
+        <span class="hz__arrow-{{ section.id }}">
+          <svg width="9" height="17" viewBox="0 0 9 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.146447 0.146447C0.341709 -0.0488155 0.658291 -0.0488155 0.853553 0.146447L8.85355 8.14645C9.04882 8.34171 9.04882 8.65829 8.85355 8.85355L0.853553 16.8536C0.658291 17.0488 0.341709 17.0488 0.146447 16.8536C-0.0488155 16.6583 -0.0488155 16.3417 0.146447 16.1464L7.79289 8.5L0.146447 0.853553C-0.0488155 0.658291 -0.0488155 0.341709 0.146447 0.146447Z" fill="black"/>
+          </svg>
+        </span>
+      </h2>
+      <p>{{ section.settings.hero_text }}</p>
+    </div>
+  </a>
+
+  <div class="hz__bundle-options-{{ section.id }}">
+    {% for block in section.blocks %}
+      {% if block.type == 'bundle_card' %}
+        <a href="{{ block.settings.card_link }}" class="hz__bundle-card-{{ section.id }} {% if block.settings.card_link == blank %}hz__no-link-{{ section.id }}{% endif %}">
+          {% if block.settings.card_image != blank %}
+            <img src="{{ block.settings.card_image | img_url: 'master' }}" alt="Card Image {{ forloop.index }}">
+          {% endif %}
+          <div class="hz__card-text-{{ section.id }}">
+            <h3>{{ block.settings.card_title }}</h3>
+            <p>
+              <span>{{ block.settings.card_text }}</span>
+              <span class="hz__arrow-{{ section.id }}">
+                <svg width="9" height="17" viewBox="0 0 9 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.146447 0.146447C0.341709 -0.0488155 0.658291 -0.0488155 0.853553 0.146447L8.85355 8.14645C9.04882 8.34171 9.04882 8.65829 8.85355 8.85355L0.853553 16.8536C0.658291 17.0488 0.341709 17.0488 0.146447 16.8536C-0.0488155 16.6583 -0.0488155 16.3417 0.146447 16.1464L7.79289 8.5L0.146447 0.853553C-0.0488155 0.658291 -0.0488155 0.341709 0.146447 0.146447Z" fill="black"/>
+                </svg>
+              </span>
+            </p>
+          </div>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Bundle & Save",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "Start with a bundle & save"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Hero Text",
+      "default": "Personalize your experience whether you're looking to turn up, tap in, tune out, or just restock."
+    },
+    {
+      "type": "url",
+      "id": "hero_link",
+      "label": "Hero Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_desktop",
+      "label": "Hero Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_mobile",
+      "label": "Hero Mobile Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle_card",
+      "name": "Bundle Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title",
+          "default": "Bundle Title"
+        },
+        {
+          "type": "text",
+          "id": "card_text",
+          "label": "Card Text",
+          "default": "Build Your Bundle"
+        },
+        {
+          "type": "url",
+          "id": "card_link",
+          "label": "Card Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Bundle & Save",
+      "category": "products",
+      "blocks": [
+        {
+          "type": "bundle_card"
+        },
+        {
+          "type": "bundle_card"
+        },
+        {
+          "type": "bundle_card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

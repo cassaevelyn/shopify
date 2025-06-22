@@ -1,0 +1,272 @@
+<style>
+  .hz__media-video-bg-{{ section.id }} {
+    margin-top: 20px;
+    margin-bottom: 60px;
+  }
+  .hz__media-video-bg-{{ section.id }} .hz__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .hz__media-video-bg-{{ section.id }} .hz__column-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
+  .hz__media-video-bg-{{ section.id }} .hz__column-video {
+    position: relative;
+    overflow: hidden;
+  }
+  .hz__media-video-bg-{{ section.id }} .hz__title {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: {{ section.settings.text_color }};
+  }
+  .hz__media-video-bg-{{ section.id }} .hz__text {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: {{ section.settings.text_color }};
+    line-height: 1.4;
+  }
+  .hz__media-video-bg-{{ section.id }} .hz__button {
+    display: inline-flex;
+    align-items: center;
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    width: fit-content;
+  }
+  .hz__media-video-bg-{{ section.id }} .hz__button:hover {
+    transform: scale(1.05);
+  }
+  .hz__media-video-bg-{{ section.id }} .hz__button-icon {
+    margin-left: 10px;
+  }
+  .hz__media-video-bg-{{ section.id }} #background-vid-flow {
+    min-height: 500px;
+    width: 105%;
+    object-fit: cover;
+    position: center right;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    margin-left: -120px;
+    padding: 0;
+  }
+  .hz__media-video-bg-{{ section.id }} #background-vid-flow-t {
+    min-height: 500px;
+    width: 195%;
+    object-fit: cover;
+    position: center right;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    margin-left: -150px;
+    padding: 0;
+  }
+  .hz__media-video-bg-{{ section.id }} #background-vid-flow-m {
+    min-height: 340px;
+    width: 130%;
+    object-fit: cover;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    overflow: hidden;
+    margin-left: -45px;
+    padding: 0;
+  }
+  
+  @media (max-width: 767px) {
+    .hz__media-video-bg-{{ section.id }} .hz__row {
+      grid-template-columns: 1fr;
+    }
+    .hz__media-video-bg-{{ section.id }} .hz__column-video {
+      order: 1;
+    }
+    .hz__media-video-bg-{{ section.id }} .hz__column-content {
+      order: 2;
+      padding: 20px 10px;
+    }
+    .hz__media-video-bg-{{ section.id }} .hz__title {
+      font-size: 3rem;
+    }
+    .hz__media-video-bg-{{ section.id }} .hz__text {
+      font-size: 1rem;
+    }
+    .hz__media-video-bg-{{ section.id }} .hz__button {
+      font-size: 1rem;
+      padding: 10px 20px;
+    }
+    .hz__media-video-bg-{{ section.id }} #background-vid-flow,
+    .hz__media-video-bg-{{ section.id }} #background-vid-flow-t {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .hz__media-video-bg-{{ section.id }} #background-vid-flow-m {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .hz__media-video-bg-{{ section.id }} #background-vid-flow-t {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .hz__media-video-bg-{{ section.id }} #background-vid-flow {
+      display: none;
+    }
+  }
+</style>
+
+<section class="hz__media-video-bg-{{ section.id }} page-width">
+  <div class="hz__row">
+    <div class="hz__column-video">
+      {% if section.settings.video_desktop != blank %}
+        <video id="background-vid-flow" aria-label="{{ section.settings.video_desktop_aria_label }}" autoplay="true" muted="muted" playsinline="playsinline" data-wf-ignore="true" loop="">
+          <source src="{{ section.settings.video_desktop }}" data-wf-ignore="true" style="mix-blend-mode: darken !important;">
+        </video>
+      {% endif %}
+      
+      {% if section.settings.video_tablet != blank %}
+        <video id="background-vid-flow-t" autoplay="true" muted="muted" playsinline="playsinline" data-wf-ignore="true" loop="">
+          <source src="{{ section.settings.video_tablet }}" data-wf-ignore="true" style="mix-blend-mode: darken !important;">
+        </video>
+      {% endif %}
+      
+      {% if section.settings.video_mobile != blank %}
+        <video id="background-vid-flow-m" aria-label="{{ section.settings.video_mobile_aria_label }}" autoplay="true" muted="muted" playsinline="playsinline" data-wf-ignore="true" loop="">
+          <source src="{{ section.settings.video_mobile }}" data-wf-ignore="true">
+        </video>
+      {% endif %}
+    </div>
+    
+    <div class="hz__column-content">
+      <h2 class="hz__title">{{ section.settings.title }}</h2>
+      <div class="hz__text">{{ section.settings.text }}</div>
+      
+      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="hz__button">
+          {{ section.settings.button_text }}
+          <span class="hz__button-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Media with Video Background",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The perfect effect"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Our next-gen tonics are the experience you've been waiting for... Taste the experience with each sip—wherever and whenever.</p>"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Yes, please"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#E3F98A"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "url",
+      "id": "video_desktop",
+      "label": "Desktop Video URL"
+    },
+    {
+      "type": "text",
+      "id": "video_desktop_aria_label",
+      "label": "Desktop Video Aria Label",
+      "default": "Video of a BREZ can falling into water",
+      "info": "Accessibility description for screen readers"
+    },
+    {
+      "type": "url",
+      "id": "video_tablet",
+      "label": "Tablet Video URL"
+    },
+    {
+      "type": "url",
+      "id": "video_mobile",
+      "label": "Mobile Video URL"
+    },
+    {
+      "type": "text",
+      "id": "video_mobile_aria_label",
+      "label": "Mobile Video Aria Label",
+      "default": "Video of a BREZ can falling into water",
+      "info": "Accessibility description for screen readers"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Media Video Background",
+      "category": "video"
+    }
+  ]
+}
+{% endschema %}
