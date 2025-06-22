@@ -1,0 +1,622 @@
+{% liquid
+  if section.settings.img_mob or section.settings.video_mob
+    assign mob_available = true
+  else
+    assign mob_available = false
+  endif
+%}
+
+<style>
+  .hz__pdp-mediaWithText_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .hz__pdp-mediaWithText__blocks_{{ section.id }}{
+    gap: {{section.settings.gutter_desk}}px;
+    {% unless section.settings.media_first_desk %}
+      flex-direction: row-reverse;
+    {% endunless %}
+  }
+  .hz__pdp-mwtBlock__media_{{ section.id }} {
+    border-radius: {{section.settings.border_radius}}px;
+    width: calc({{section.settings.media_width}}% - {{section.settings.gutter_desk | divided_by: 2}}px);
+  }
+  .hz__pdp-mwtBlock__text_{{ section.id }}{
+    width: calc({{100 | minus: section.settings.media_width}}% - {{section.settings.gutter_desk | divided_by: 2}}px);
+  }
+  .hz__pdp-mwtBlocks__container_{{ section.id }}{
+    background: {{section.settings.container_bg}};
+    border-radius: {{section.settings.content_radius}}px;
+  }
+  .hz__pdp-mwtText__wrapper_{{ section.id }}{
+    max-width: {{section.settings.max_width}}%;
+    {% if section.settings.media_first_desk %}
+      margin-left: auto;
+    {% else %}
+      margin-right: auto;
+    {% endif %}
+  }
+  @media only screen and (max-width: 768px) {
+    .hz__pdp-mediaWithText_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+    .hz__pdp-mediaWithText__blocks_{{ section.id }}{
+      gap: {{section.settings.gutter_mob}}px;
+      {% unless section.settings.media_first_mob %}
+        flex-direction: column-reverse;
+      {% endunless %}
+    }
+  }
+</style>
+
+<section class="hz__pdp-mediaWithText hz__pdp-mediaWithText_{{ section.id }}">
+  <div class="hz__pdp-mediaWithTextInner {{ section.settings.content_width }}">
+    <div class="hz__pdp-mediaWithText__blocks hz__pdp-mediaWithText__blocks_{{ section.id }} {% if section.settings.container %}hz__pdp-mwtBlocks__container hz__pdp-mwtBlocks__container_{{ section.id }} {% endif %}">
+      <!-- ---- MEDIA BLOCK START --- -->
+      <div class="hz__pdp-mediaWithText__block hz__pdp-mwtBlock__media hz__pdp-mwtBlock__media_{{ section.id }} {% if section.settings.media_ar == 'square' %} hz__pdp-mwtBlock__mediaSquare {% endif %}">
+        <div class="hz__pdp-mwtMedia__wrapper {% if mob_available %} hz__pdp-mwtMediaWrap__desk {% endif %}">
+          {% if section.settings.video_desk %}
+            <video
+              preload="metadata"
+              {% if section.settings.autoplay %}
+                autoplay
+              {% endif %}
+              {% if section.settings.muted %}
+                muted
+              {% endif %}
+              {% if section.settings.loop %}
+                loop
+              {% endif %}
+            >
+              <source type="video/mp4" src="{{ section.settings.video_desk }}">
+            </video>
+          {% elsif section.settings.img_desk %}
+            <img src="{{ section.settings.img_desk | img_url: '4000x' }}" alt="{{ section.settings.img_desk.alt }}">
+          {% endif %}
+        </div>
+        {% if mob_available %}
+          <div class="hz__pdp-mwtMedia__wrapper hz__pdp-mwtMediaWrap__mob">
+            {% if section.settings.video_mob %}
+              <video
+                preload="metadata"
+                {% if section.settings.autoplay %}
+                  autoplay
+                {% endif %}
+                {% if section.settings.muted %}
+                  muted
+                {% endif %}
+                {% if section.settings.loop %}
+                  loop
+                {% endif %}
+              >
+                <source type="video/mp4" src="{{ section.settings.video_mob }}">
+              </video>
+            {% elsif section.settings.img_mob %}
+              <img src="{{ section.settings.img_mob | img_url: '4000x' }}" alt="{{ section.settings.img_mob.alt }}">
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+      <!-- --- TEXT BLOCK START --- -->
+      <div class="hz__pdp-mediaWithText__block hz__pdp-mwtBlock__text hz__pdp-mwtBlock__text_{{ section.id }}">
+        <div class="hz__pdp-mwtText__wrapper hz__pdp-mwtText__wrapper_{{ section.id }}">
+          {% for block in section.blocks %}
+            <div class="hz__pdp-mwtTextContent__block hz__pdp-mwtTextContent__block_{{ block.id }}">
+              {% case block.type %}
+                {% when 'title' %}
+                  <style>
+                    .hz__pdp-mwtText__title_{{ block.id }}{
+                      margin-bottom: {{block.settings.mbd}}px;
+                    }
+                    @media only screen and (max-width: 992px){
+                      .hz__pdp-mwtText__title_{{ block.id }}{
+                        margin-bottom: {{block.settings.mbm}}px;
+                      }
+                    }
+                  </style>
+                  <h2
+                    class="hz__pdp-mwtText__title hz__pdp-mwtText__title_{{ block.id }} hz__pdp-titleSecondary"
+                    style="color: {{ block.settings.clr }}; text-align: {{ block.settings.alignment }};"
+                  >
+                    {{ block.settings.title }}
+                  </h2>
+                {% when 'text' %}
+                  <style>
+                    .hz__pdp-mwtText__text_{{ block.id }}{
+                      margin-bottom: {{block.settings.mbd}}px;
+                    }
+                    @media only screen and (max-width: 992px){
+                      .hz__pdp-mwtText__text_{{ block.id }}{
+                        margin-bottom: {{block.settings.mbm}}px;
+                      }
+                    }
+                  </style>
+                  <div
+                    class="hz__pdp-mwtText__text hz__pdp-mwtText__text_{{ block.id }} hz__pdp-text{{ block.settings.text_size }}"
+                    style="color: {{ block.settings.clr }}; text-align: {{ block.settings.alignment }};"
+                  >
+                    {{ block.settings.text }}
+                  </div>
+                {% when 'button' %}
+                  <div class="hz__pdp-mwtText__btnWrapper hz__pdp-btnWrapper">
+                    {% render 'hzBtn',
+                      section: block,
+                      class: 'hz__pdp-mwtText__btn hz__pdp-btnTer',
+                      section_id: section.id
+                    %}
+                  </div>
+              {% endcase %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Media With Text",
+  "settings": [
+    {
+      "type": "header",
+      "content":  "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__pdp-contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__pdp-contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__pdp-contentWidth_ter"
+        }
+      ],
+      "default":"hz__pdp-contentWidth_sec"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 68
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 70
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 42
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 15
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Media - Desktop",
+      "info": "Videos take priority if both video and image fields are filled."
+    },
+    {
+      "type": "url",
+      "label": "Paste Video URL",
+      "id": "video_desk"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "img_desk"
+    },
+     {
+      "type": "header",
+      "content": "Section Media - Mobile",
+      "info": "Videos take priority if both video and image fields are filled."
+    },
+    {
+      "type": "url",
+      "label": "Paste Video URL",
+      "id": "video_mob"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "img_mob"
+    },
+    {
+      "type": "header",
+      "content": "Video Controls"
+    },
+    {
+      "type": "checkbox",
+      "label": "Autoplay Video",
+      "id": "autoplay",
+      "default":true
+    },
+    {
+      "type": "checkbox",
+      "label": "Mute Video",
+      "id": "muted",
+      "default":true
+    },
+    {
+      "type": "checkbox",
+      "label": "Play Video On Loop",
+      "id": "loop",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Media Layout Controls"
+    },
+    {
+      "type": "range",
+      "label": "Media Width",
+      "id": "media_width",
+      "unit": "%",
+      "min": 20,
+      "max": 70,
+      "step": 0.5,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "label": "Content Maximum Width",
+      "id": "max_width",
+      "unit": "%",
+      "min": 50,
+      "max": 100,
+      "step": 0.5,
+      "default": 91
+    },
+    {
+      "type": "select",
+      "label": "Media Aspect Ratio",
+      "id": "media_ar",
+      "options": [
+        {
+          "label": "Adapt to Media",
+          "value": "adapt"
+        },
+        {
+          "label": "Square",
+          "value": "square"
+        }
+      ],
+      "default":"square"
+    },
+    {
+      "type": "range",
+      "label": "Media Rounded Borders",
+      "id": "border_radius",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Section Layout Controls"
+    },
+    {
+      "type": "checkbox",
+      "label": "Media First - Desktop",
+      "id": "media_first_desk",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "label": "Media First - Mobile",
+      "id": "media_first_mob",
+      "default": true
+    },
+    {
+      "type": "range",
+      "label": "Gap Between Media & Text - Desktop",
+      "id": "gutter_desk",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "label": "Gap Between Media & Text - Mobile",
+      "id": "gutter_mob",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "checkbox",
+      "label": "Show  Container",
+      "id": "container",
+      "default":false
+    },
+    {
+      "type": "color_background",
+      "label": "Container Background",
+      "id": "container_bg",
+      "default":"#F4FBFF"
+    },
+    {
+      "type": "range",
+      "label": "Content Rounded Borders",
+      "id": "content_radius",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 20
+    },
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Title",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "label": "Title",
+          "id": "title",
+          "default": "Add Title"
+        },
+        {
+          "type": "color",
+          "label": "Title Color",
+          "id": "clr",
+          "default": "#000"
+        },
+        {
+          "type": "range",
+          "label": "Margin Bottom - Desktop",
+          "id": "mbd",
+          "min": 0,
+          "max": 100,
+          "unit": "px",
+          "step": 1,
+          "default": 10
+        },
+        {
+          "type": "range",
+          "label": "Margin Bottom - Mobile",
+          "id": "mbm",
+          "min": 0,
+          "max": 100,
+          "unit": "px",
+          "step": 1,
+          "default": 10
+        },
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "label": "Text",
+          "id": "text"
+        },
+        {
+          "type": "select",
+          "label": "Text Size",
+          "id": "text_size",
+          "options": [
+            {
+              "label": "Primary",
+              "value": "primary"
+            },
+            {
+              "label": "Secondary",
+              "value": "secondary"
+            }
+          ],
+          "default":"primary"
+        },
+        {
+          "type": "color",
+          "label": "Text Color",
+          "id": "clr",
+          "default": "#000"
+        },
+        {
+          "type": "range",
+          "label": "Margin Bottom - Desktop",
+          "id": "mbd",
+          "min": 0,
+          "max": 100,
+          "unit": "px",
+          "step": 1,
+          "default": 10
+        },
+        {
+          "type": "range",
+          "label": "Margin Bottom - Mobile",
+          "id": "mbm",
+          "min": 0,
+          "max": 100,
+          "unit": "px",
+          "step": 1,
+          "default": 10
+        },
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "url",
+          "label": "Button URL",
+          "id": "url"
+        },
+        {
+          "type": "text",
+          "label": "Button Label",
+          "id": "label",
+          "default":"SHOP NOW"
+        },
+        {
+          "type": "html",
+          "label": "Paste Button Icon SVG",
+          "id": "btn_icon"
+        },
+        {
+          "type": "header",
+          "content": "Button Layout Controls"
+        },
+        {
+          "type": "range",
+          "label": "Rounded Corners",
+          "id": "border_radius",
+          "min": 0,
+          "max": 100,
+          "unit": "px",
+          "step": 1,
+          "default": 10
+        },
+        {
+          "type": "header",
+          "content": "Button Colors Controls - Default"
+        },
+        {
+          "type": "color",
+          "label": "Button Background",
+          "id": "bg_pri",
+          "default":"transparent"
+        },
+        {
+          "type": "color",
+          "label": "Button Label",
+          "id": "label_pri",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "label": "Button Borders",
+          "id": "borders_pri",
+          "default":"#000"
+        },
+        {
+          "type": "header",
+          "content": "Button Colors Controls - On Hover"
+        },
+        {
+          "type": "color",
+          "label": "Button Background",
+          "id": "bg_sec",
+          "default":"#000"
+        },
+        {
+          "type": "color",
+          "label": "Button Label",
+          "id": "label_sec",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "label": "Button Borders",
+          "id": "borders_sec",
+          "default":"#fff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Media With Text Product",
+      "category": "image, video, text"
+    }
+  ]
+}
+{% endschema %}

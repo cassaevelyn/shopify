@@ -1,0 +1,288 @@
+<style>
+  .hz__testimonials_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  @media only screen and (max-width: 768px){
+    .hz__testimonials_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+  }
+</style>
+
+<section class="hz__testimonials hz__testimonials_{{ section.id }}">
+  <div class="hz__testimonialsInner {{ section.settings.content_width }}">
+    <div class="hz__testimonials__header">
+      <h2 class="hz__testimonials__title hz__titleSecondary" style="color: {{ section.settings.clr }}">
+        {{ section.settings.title }}
+      </h2>
+      <p class="hz__testimonials__subtext hz__subtext" style="color: {{ section.settings.clr }}">
+        {{ section.settings.subtext }}
+      </p>
+    </div>
+    <div class="hz__testimonials__body">
+      <div class="hz__testionials__slides hz__testionials__slides_{{ section.id }}">
+        {% for block in section.blocks %}
+          <div class="hz__testimonials_slide hz__testimonials_slide_{{ block.id }}">
+            <div class="hz__testmonialSlide_inner">
+              <div class="hz__testmonialSlide__media">
+                {% if block.settings.video != blank %}
+                  <video preload="metadata">
+                    <source type="video/mp4" src="{{ block.settings.video }}">
+                  </video>
+                  {% if block.settings.img != blank and block.settings.as_cover %}
+                    <div class="hz__vsVideoSlide__overlay">
+                      {% if block.settings.cover != blank %}
+                        <img src="{{ block.settings.cover | img_url: '4000x' }}">
+                      {% endif %}
+                    </div>
+                    <button class="hz__btn hz__videoSlide__playBtn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="59" height="59" viewBox="0 0 59 59" fill="none">
+                        <path d="M59 29.5C59 45.7924 45.7924 59 29.5 59C13.2076 59 0 45.7924 0 29.5C0 13.2076 13.2076 0 29.5 0C45.7924 0 59 13.2076 59 29.5Z" fill="white"/>
+                        <path d="M23 23.2097C23.0002 22.8137 23.1045 22.425 23.302 22.0842C23.4995 21.7435 23.7829 21.4632 24.1227 21.2727C24.4625 21.0821 24.8461 20.9884 25.2335 21.0012C25.6209 21.0139 25.9978 21.1328 26.3249 21.3453L35.9979 27.6341C36.305 27.8338 36.5578 28.1094 36.733 28.4354C36.9082 28.7614 37 29.1274 37 29.4993C37 29.8712 36.9082 30.2371 36.733 30.5631C36.5578 30.8891 36.305 31.1647 35.9979 31.3644L26.3249 37.6547C25.9977 37.8673 25.6207 37.9861 25.2331 37.9989C24.8456 38.0116 24.4619 37.9177 24.1221 37.727C23.7822 37.5363 23.4988 37.2558 23.3014 36.9148C23.104 36.5738 22.9999 36.185 23 35.7888V23.2097Z" fill="black"/>
+                      </svg>
+                    </button>
+                  {% endif %}
+                {% elsif block.settings.img != blank %}
+                  <img src="{{ block.settings.img | img_url: '4000x' }}" alt="{{ block.settings.img.alt }}">
+                {% endif %}
+              </div>
+              <div class="hz__testimonial__content">
+                <div class="hz__testimonial__ratStars">
+                  {{ block.settings.stars }}
+                </div>
+                <div class="hz__testimonial__txtContent" style="color: {{ section.settings.clr }}">
+                  {{ block.settings.content }}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    {
+      "type": "header",
+      "content":  "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__contentWidth_ter"
+        }
+      ],
+      "default":"hz__contentWidth_pri"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 112
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 34
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 36
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default":108
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"#F4FBFF"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Add Title"
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Subtext",
+      "id": "subtext",
+      "default":"Add Text"
+    },
+    {
+      "type": "color",
+      "label": "Content Color",
+      "id": "clr",
+      "default":"#000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "url",
+          "label": "Testimonial Video",
+          "id": "video"
+        },
+        {
+          "type": "image_picker",
+          "label": "Testimonial Image",
+          "id": "img"
+        },
+        {
+          "type": "checkbox",
+          "label": "Use Image as video Cover",
+          "id": "as_cover",
+          "default":false
+        },
+        {
+          "type": "html",
+          "label": "Paste Stars SVG",
+          "id": "stars",
+        },
+        {
+          "type": "richtext",
+          "label": "Testomonial Content",
+          "id": "content",
+          "default":"<p>Add Testimonial Content</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Testimonials",
+      "category": "testimonial"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  $('.hz__testionials__slides_{{ section.id }}').slick({
+    slidesToShow:4,
+    autoplay: false,
+    dots: false,
+    arrows: false,
+    infinite: false,
+    cssEase: 'linear',
+     responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3.15,
+        slidesToScroll: 1,
+        dots: false
+      }
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        centerMode: true,
+        centerPadding: '55px',
+        dots: false,
+        infinite: true
+      }
+    }
+  ]
+  });
+</script>

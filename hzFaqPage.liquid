@@ -1,0 +1,261 @@
+<style>
+      .hz__ftFaqs_{{ section.id }}{
+        padding-top: {{section.settings.ptd}}px;
+        padding-bottom: {{section.settings.pbd}}px;
+        padding-left: {{section.settings.plrd}}px;
+        padding-right: {{section.settings.plrd}}px;
+        {% if section.settings.bg_img != blank %}
+          background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+        {% else %}
+          background: {{section.settings.bg_clr}};
+        {% endif %}
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .hz__ftFaqs__blocks{
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+      }
+      .hz__ftFaqBlock__title{
+        color: #000;
+    font-family: Lexend;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+        letter-spacing: normal;
+        margin: 0 0 20px;
+      }
+    .hz__ftFaqBlock__content{
+      padding: 30px 10px 50px;
+      box-shadow: 0px 0px 9.5px 0px rgba(0, 0, 0, 0.10);
+      border-radius: 20px;
+    }
+    .hz__ftFaqBlock__content *{
+      color: inherit;
+    }
+    .hz__ftFaqBlock__content *:not(p){
+      color: #000;
+  font-family: Lexend;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+      letter-spacing: normal;
+        margin: 30px 0 0;
+    }
+    .hz__ftFaqBlock__content p{
+     color: #000;
+  font-family: Lexend;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  text-transform: capitalize;
+      letter-spacing: normal;
+        margin: 0;
+    }
+      @media only screen and (max-width: 768px){
+        .hz__ftFaqs_{{ section.id }}{
+          padding-top: {{section.settings.ptm}}px;
+          padding-bottom: {{section.settings.pbm}}px;
+          padding-left: {{section.settings.plrm}}px;
+          padding-right: {{section.settings.plrm}}px;
+        }
+      }
+  @media only screen and (max-width: 992px){
+    .hz__ftFaqBlock__title{
+      font-size: 28px;
+    }
+    .hz__ftFaqBlock__content *:not(p){
+      font-size: 20px;
+    }
+    .hz__ftFaqBlock__content *{
+      font-size: 18px;
+    }
+    .hz__ftFaqs__blocks{
+      gap: 40px;
+    }
+  }
+  @media only screen and (max-width: 768px){
+    .hz__ftFaqBlock__title{
+      font-size: 24px;
+    }
+    .hz__ftFaqBlock__content *{
+      font-size: 14px !important;
+    }
+    .hz__ftFaqs__blocks{
+      gap: 23px;
+    }
+    .hz__ftFaqBlock__title{
+      margin: 0 0 23px;
+    }
+  }
+</style>
+
+<section class="hz__ftFaqs hz__ftFaqs_{{ section.id }}">
+  <div class="hz__ftFaqsInner {{ section.settings.content_width }}">
+    <div class="hz__ftFaqs__blocks">
+      {% for block in section.blocks %}
+        <div class="hz__ftFaq__block hz__ftFaq__block_{{ block.id }}">
+          <h2 class="hz__ftFaqBlock__title" style="color: {{ section.settings.clr }}">
+            {{ block.settings.title }}
+          </h2>
+          <div class="hz__ftFaqBlock__content" style="color: {{ section.settings.clr }}">
+            {{ block.settings.text }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "header",
+      "content":  "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__contentWidth_ter"
+        }
+      ],
+      "default":"hz__contentWidth_sec"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 78
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 122
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 90
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 104
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 32
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "color",
+      "label": "Color",
+      "id":"clr",
+      "default":"#000"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": [
+        {
+          "type":"inline_richtext",
+          "label": "Title",
+          "id": "title",
+          "default": "Title"
+        },
+        {
+          "type": "richtext",
+          "label": "Content",
+          "id": "text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ FAQ Blocks",
+      "category": "faq"
+    }
+  ]
+}
+{% endschema %}

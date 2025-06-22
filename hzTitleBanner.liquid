@@ -1,0 +1,222 @@
+<style>
+    .hz__titleBanner_{{ section.id }}{
+      padding-top: {{section.settings.ptd}}px;
+      padding-bottom: {{section.settings.pbd}}px;
+      padding-left: {{section.settings.plrd}}px;
+      padding-right: {{section.settings.plrd}}px;
+      {% if section.settings.bg_img != blank %}
+        background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+      {% else %}
+        background: {{section.settings.bg_clr}};
+      {% endif %}
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    @media only screen and (max-width: 768px){
+      .hz__titleBanner_{{ section.id }}{
+        padding-top: {{section.settings.ptm}}px;
+        padding-bottom: {{section.settings.pbm}}px;
+        padding-left: {{section.settings.plrm}}px;
+        padding-right: {{section.settings.plrm}}px;
+      }
+    }
+    .hz__titleBan__title{
+  font-family: Chillax;
+  font-size: 96px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+      margin: 0;
+      letter-spacing: normal;
+      text-align: center;
+    }
+  .hz__titleBannerInner{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  .hz__titleBan__text{
+    font-family: Chillax;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+    margin: 0;
+    text-transform: capitalize;
+  }
+  @media only screen and (max-width: 1200px){
+    .hz__titleBan__title{
+      font-size: 84px
+    }
+     .hz__titleBan__text{
+      font-size: 22px;
+    }
+  }
+  @media only screen and (max-width: 1024px){
+    .hz__titleBan__title{
+      font-size: 72px
+    }
+    .hz__titleBan__text{
+      font-size: 20px;
+    }
+  }
+  @media only screen and (max-width: 768px){
+    .hz__titleBan__title{
+      font-size: 60px
+    }
+     .hz__titleBan__text{
+      font-size: 18px;
+    }
+  }
+  @media only screen and (max-width: 600px){
+    .hz__titleBan__title{
+      {% if section.settings.small %}
+        font-size: 24px;
+        {% else %}
+      font-size:40px;
+    {% endif %}
+    }
+     .hz__titleBan__text{
+      font-size: 12px;
+    }
+  }
+  @media only screen and (max-width: 340px){
+    .hz__titleBan__title{
+      font-size: 35px
+    }
+  }
+</style>
+
+<section class="hz__titleBanner hz__titleBanner_{{ section.id }}">
+  <div class="hz__titleBannerInner">
+    <h2 class="hz__titleBan__title" style="color: {{ section.settings.clr }}">
+      {{ section.settings.title }}
+    </h2>
+    {% if section.settings.text != blank %}
+      <p class="hz__titleBan__text" style="color: {{ section.settings.clr }}">
+        {{ section.settings.text }}
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Title Banner",
+  "settings": [
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 90
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 90
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 35
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Title"
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Text",
+      "id": "text",
+      "default":"Add Text"
+    },
+    {
+      "type": "color",
+      "label": "Title Color",
+      "id": "clr",
+      "default":"#fff"
+    },
+    {
+      "type": "checkbox",
+      "label": "Smaller Title On Mobile",
+      "id":"small",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Title Banner",
+      "category": "image"
+    }
+  ]
+}
+{% endschema %}

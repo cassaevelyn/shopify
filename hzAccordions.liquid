@@ -1,0 +1,278 @@
+<style>
+  .hz__accordions_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  .hz__accordion__media{
+    display: none;
+    width: 100%;
+  }
+  .hz__accordions__title_{{ section.id }}{
+      color: {{section.settings.pri_clr}};
+    }
+  @media only screen and (max-width: 768px){
+    .hz__accordions_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .hz__accordions_{{ section.id }} .hz__accordionsContainer{
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+    .hz__accordions_{{ section.id }}{
+      background: {{section.settings.bg_clr}};
+    }
+    .hz__accordion__media{
+      display: block;
+    }
+    .hz__accordions__title_{{ section.id }}{
+      color: {{section.settings.sec_clr}};
+    }
+  }
+</style>
+
+<section class="hz__accordions hz__accordions_{{ section.id }}">
+  <div class="hz__accordionsInner">
+    <div class="hz__accordion__media">
+      {% if section.settings.bg_img != blank %}
+        <img src="{{ section.settings.bg_img| img_url: '4000x' }}">
+      {% endif %}
+    </div>
+    <div class="hz__accordionsContainer">
+      <h2 class="hz__accordions__title hz__accordions__title_{{ section.id }}">
+        {{ section.settings.title }}
+      </h2>
+      <div class="hz__accordion_blocks">
+        {% for block in section.blocks %}
+          <div
+            class="hz__accordionBlock hz__accordionBlock_{{ block.id }}"
+            style="background:{{ section.settings.pri_clr }}; border: 2px solid {{ section.settings.sec_clr }}"
+          >
+            <div class="hz__accBlock_header">
+              <h4 class="hz__accBlock__title" style="color: {{ section.settings.sec_clr }}">
+                {{ block.settings.title }}
+              </h4>
+              <div class="hz__accBlock__icons">
+                <span class="hz__accBlock_icon hz__accBlockIcon_plus">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.72388 12.3905C9.97392 12.1405 10.313 12.0001 10.6665 12.0001C11.0201 12.0001 11.3592 12.1405 11.6092 12.3905L15.9999 16.7811L20.3905 12.3905C20.5135 12.2631 20.6607 12.1615 20.8233 12.0916C20.986 12.0218 21.161 11.985 21.338 11.9834C21.515 11.9819 21.6906 12.0156 21.8545 12.0827C22.0183 12.1497 22.1672 12.2487 22.2924 12.3739C22.4176 12.4991 22.5166 12.648 22.5836 12.8118C22.6507 12.9757 22.6844 13.1513 22.6829 13.3283C22.6813 13.5054 22.6446 13.6803 22.5747 13.843C22.5048 14.0057 22.4032 14.1528 22.2759 14.2758L16.9425 19.6091C16.6925 19.8591 16.3534 19.9995 15.9999 19.9995C15.6463 19.9995 15.3072 19.8591 15.0572 19.6091L9.72388 14.2758C9.47392 14.0257 9.3335 13.6867 9.3335 13.3331C9.3335 12.9796 9.47392 12.6405 9.72388 12.3905Z" fill="#95523C"/>
+                  </svg>
+                </span>
+                <!--
+                  <span class="hz__accBlock_icon hz__accBlockIcon_minus">
+                    <svg
+                      height="20"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 256 256"
+                      fill="currentColor"
+                      data-id="493334322263687517"
+                    >
+                      <path fill="currentColor" strokelinecap="round" strokelinejoin="round" d="M176,128a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,128Zm56,0A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"></path>
+                    </svg>
+                  </span>
+                -->
+              </div>
+            </div>
+            <div class="hz__accBlock_content">
+              <div class="hz__accBlockContent_inner">
+                {% if block.settings.img != blank %}
+                  <img src="{{ block.settings.img | img_url: '4000x' }}">
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Accordions",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Add Title"
+    },
+    {
+      "type": "header",
+      "content": "Color Controls"
+    },
+    {
+      "type": "color",
+      "label": "Primary Color",
+      "id": "pri_clr",
+      "default":"#FFF"
+    },
+    {
+      "type": "color",
+      "label": "Secondary Color",
+      "id": "sec_clr",
+      "default":"#95523C"
+    },
+    {
+      "type": "color",
+      "label": "Tertiary Color",
+      "id": "ter_clr",
+      "default":"#000"
+    },
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "label": "Title",
+          "id": "title",
+          "default":"Add Accordion Title"
+        },
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "img",
+        },
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Accordions",
+      "category": "accordion"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  const accordions = document.querySelectorAll('.hz__accordionBlock');
+  accordions.forEach((question, index)=>{
+    question.querySelector('.hz__accBlock_header').addEventListener('click', ()=>{
+      const isActive = question.classList.contains('active');
+
+      accordions.forEach((otherQuestions, otherIndex)=>{
+        if (otherQuestions !== question) {
+          otherQuestions.classList.remove('active');
+          otherQuestions.querySelector('.hz__accBlock_content').style.maxHeight = '0';
+        }
+      });
+
+      if (!isActive) {
+        question.classList.add('active');
+        question.querySelector('.hz__accBlock_content').style.maxHeight = question.querySelector('.hz__accBlock_content').scrollHeight + 34 + 'px';
+      } else {
+        question.classList.remove('active');
+        question.querySelector('.hz__accBlock_content').style.maxHeight = '0';
+      }
+    });
+    if (index === 0) {
+      question.classList.add('active');
+      question.querySelector('.hz__accBlock_content').style.maxHeight = question.querySelector('.hz__accBlock_content').scrollHeight + 34 + 'px';
+    }
+  });
+</script>

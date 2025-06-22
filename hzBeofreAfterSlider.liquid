@@ -1,0 +1,276 @@
+<style>
+  .hz__beforeAferSlider_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  @media only screen and (max-width: 768px){
+    .hz__beforeAferSlider_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+  }
+</style>
+
+<section class="hz__beforeAferSlider hz__beforeAferSlider_{{ section.id }}">
+  <div class="hz__beforeAferSliderInner">
+    <div class="hz__befAftSlider__header">
+      <h2 class="hz__befAftSlider__title" style="color: {{ section.settings.clr }}">
+        {{ section.settings.title }}
+      </h2>
+      <div class="hz__befAftSlider__text" style="color: {{ section.settings.clr }}">
+        {{ section.settings.text }}
+      </div>
+    </div>
+    <div class="hz__wrapper hz__wrapper_{{ section.id }}">
+      <div class="hz__before">
+        <img
+          class="hz__content-image"
+          src="{{ section.settings.img2 | img_url: '4000x' }}"
+          draggable="false"
+          alt="Before Image"
+        >
+      </div>
+      <div class="hz__after hz__after_{{ section.id }}">
+        <div class="hz__after_inner hz__after_inner_{{ section.id }}">
+          <img
+            class="hz__content-image"
+            src="{{ section.settings.img1 | img_url: '4000x' }}"
+            draggable="false"
+            alt="After Image"
+          >
+        </div>
+      </div>
+      <div class="hz__scroller hz__scroller_{{ section.id }}">
+        <svg role="presentation" focusable="false" width="28" height="35" viewBox="0 0 32 40">
+          <path d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16V24C32 32.8366 24.8366 40 16 40C7.16344 40 0 32.8366 0 24V16Z" fill="#ffffff"></path>
+          <path fill="#000000" d="M11 14H13V26H11zM15 14H17V26H15zM19 14H21V26H19z"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Before & After Comparison",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Add Title"
+    },
+    {
+      "type": "richtext",
+      "label": "Text",
+      "id": "text",
+      "default":"<p>Add Text</p>"
+    },
+    {
+      "type": "header",
+      "content": "Slider Images"
+    },
+    {
+      "type": "image_picker",
+      "label": "Before Image",
+      "id": "img1"
+    },
+    {
+      "type": "image_picker",
+      "label": "After Image",
+      "id": "img2"
+    },
+    {
+      "type": "color",
+      "label": "Content Color",
+      "id": "clr",
+      "default":"#FF8A23"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Before & After Comparison Slider",
+      "category": "sectionCategory"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  document.querySelectorAll('.hz__wrapper').forEach(wrapper => {
+    let active = false;
+    const scroller = wrapper.querySelector('.hz__scroller');
+    const after = wrapper.querySelector('.hz__after');
+
+    function setInitialState() {
+      const wrapperWidth = wrapper.offsetWidth;
+      const initialPosition = wrapperWidth / 2;
+      scrollIt(initialPosition);
+    }
+
+    function scrollIt(x) {
+      const wrapperWidth = wrapper.offsetWidth;
+      const transform = Math.max(0, Math.min(x, wrapperWidth));
+      after.style.width = `${transform}px`;
+      scroller.style.left = `${transform}px`;
+    }
+
+    scroller.addEventListener('mousedown', () => {
+      active = true;
+      scroller.classList.add('hz__scrolling');
+    });
+
+    document.body.addEventListener('mouseup', () => {
+      active = false;
+      scroller.classList.remove('hz__scrolling');
+    });
+
+    document.body.addEventListener('mouseleave', () => {
+      active = false;
+      scroller.classList.remove('hz__scrolling');
+    });
+
+    document.body.addEventListener('mousemove', (e) => {
+      if (!active) return;
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.pageX - rect.left;
+      scrollIt(x);
+    });
+
+    scroller.addEventListener('touchstart', () => {
+      active = true;
+      scroller.classList.add('hz__scrolling');
+    });
+
+    document.body.addEventListener('touchend', () => {
+      active = false;
+      scroller.classList.remove('hz__scrolling');
+    });
+
+    document.body.addEventListener('touchcancel', () => {
+      active = false;
+      scroller.classList.remove('hz__scrolling');
+    });
+
+    document.body.addEventListener('touchmove', (e) => {
+      if (!active) return;
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.touches[0].pageX - rect.left;
+      scrollIt(x);
+    });
+
+    setInitialState();
+  });
+
+  function setAfterInnerWidth() {
+    document.querySelectorAll('.hz__wrapper').forEach(wrapper => {
+      const afterInner = wrapper.querySelector('.hz__after_inner');
+      if (afterInner) {
+        const wrapperWidth = wrapper.offsetWidth;
+        afterInner.style.width = `${wrapperWidth}px`;
+      }
+    });
+  }
+
+  window.addEventListener('load', setAfterInnerWidth);
+  window.addEventListener('resize', setAfterInnerWidth);
+</script>

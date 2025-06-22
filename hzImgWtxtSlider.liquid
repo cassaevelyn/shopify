@@ -1,0 +1,262 @@
+<style>
+  .hz__imgsWtextSlider_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  @media only screen and (max-width: 768px){
+    .hz__imgsWtextSlider_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+  }
+</style>
+
+<section class="hz__imgsWtextSlider hz__imgsWtextSlider_{{ section.id }}">
+  <div class="hz__imgsWtextSliderInner {{ section.settings.content_width }}">
+    <div class="hz__imgsWtextSlider__header">
+      <h2 class="hz__imgsWtextSlider__title hz__titleSecondary" style="color: {{ section.settings.clr }}">
+        {{ section.settings.title }}
+      </h2>
+      <p class="hz__imgsWtextSlider__subtext hz__subtext" style="color: {{ section.settings.clr }}">
+        {{ section.settings.subtext }}
+      </p>
+    </div>
+    <div class="hz__imgsWtextSlider__body">
+      <button class="hz__sliderBtn hz__sliderBtn_prev hz__sliderBtn_prev_{{ section.id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="28" viewBox="0 0 25 28" fill="none">
+          <path d="M16.1455 6.65348C16.3388 6.86594 16.4473 7.15405 16.4473 7.45446C16.4473 7.75487 16.3388 8.04299 16.1455 8.25544L11.0415 13.8634L16.1455 19.4714C16.3333 19.6851 16.4372 19.9713 16.4349 20.2683C16.4325 20.5654 16.3241 20.8495 16.1329 21.0596C15.9417 21.2696 15.6831 21.3888 15.4128 21.3914C15.1424 21.3939 14.8819 21.2797 14.6875 21.0734L8.85451 14.6644C8.6612 14.452 8.55261 14.1638 8.55261 13.8634C8.55261 13.563 8.6612 13.2749 8.85451 13.0624L14.6875 6.65348C14.8808 6.44109 15.1431 6.32178 15.4165 6.32178C15.6899 6.32178 15.9521 6.44109 16.1455 6.65348Z" fill="black"/>
+        </svg>
+      </button>
+      <div class="hz__imgsWtextSlider__slides hz__iwtSlider__{{ section.id }}">
+        {% for block in section.blocks %}
+          {% if block.settings.img != blank %}
+            <div class="hz__iwtSlider__slide hz__iwtSlider__slide_{{ block.id }}">
+              <div class="hz__iwtsSlide_inner">
+                <div class="hz__iwtsSlide__media">
+                  <img src="{{ block.settings.img | img_url: '4000x' }}" alt="{{ block.settings.img.alt }}">
+                </div>
+                <h2 class="hz__iwtsSlide__title hz__titleTertiary" style="color: {{ section.settings.clr }}">
+                  {{ block.settings.title }}
+                </h2>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <button class="hz__sliderBtn hz__sliderBtn_next hz__sliderBtn_next_{{ section.id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="28" viewBox="0 0 25 28" fill="none">
+          <path d="M8.85442 6.65495C8.66112 6.8674 8.55253 7.15552 8.55253 7.45593C8.55253 7.75634 8.66112 8.04445 8.85442 8.25691L13.9584 13.8649L8.85442 19.4729C8.6666 19.6866 8.56267 19.9727 8.56502 20.2698C8.56737 20.5668 8.67581 20.851 8.86698 21.061C9.05816 21.2711 9.31677 21.3902 9.58713 21.3928C9.85748 21.3954 10.1179 21.2812 10.3124 21.0748L16.1454 14.6659C16.3387 14.4534 16.4473 14.1653 16.4473 13.8649C16.4473 13.5645 16.3387 13.2764 16.1454 13.0639L10.3124 6.65495C10.119 6.44256 9.85683 6.32324 9.58342 6.32324C9.31 6.32324 9.04778 6.44256 8.85442 6.65495Z" fill="black"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Images Slider",
+  "settings": [
+    {
+      "type": "header",
+      "content":  "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__contentWidth_ter"
+        }
+      ],
+      "default":"hz__contentWidth_sec"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 6
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Add Title"
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Subtext",
+      "id": "subtext",
+      "default":"Add Text"
+    },
+    {
+      "type": "header",
+      "content": "Colors Controls"
+    },
+    {
+      "type": "color",
+      "label": "Content Color",
+      "id": "clr",
+      "default":"#000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "img"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title",
+          "default":"Add Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Images With Text Slider",
+      "category": "image"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  $('.hz__iwtSlider__{{ section.id }}').slick({
+    slidesToShow: 2.4,
+    autoplay: false,
+    infinite: false,
+    dots: false,
+    arrows: true,
+    prevArrow: $('.hz__sliderBtn_prev_{{ section.id }}'),
+    nextArrow: $('.hz__sliderBtn_next_{{ section.id }}'),
+    cssEase: 'linear',
+     responsive: [
+    {
+      breakpoint: 992,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        dots: false
+      }
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: false
+      }
+    }
+  ]
+  });
+</script>

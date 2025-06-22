@@ -1,0 +1,198 @@
+<style>
+  .hz__shHero_{{ section.id }}{
+    background: {{section.settings.bg_clr}};
+  }
+  @media only screen and (max-width: 768px){
+    .hz__shHero_{{ section.id }}{
+    }
+  }
+</style>
+
+<section class="hz__shHero hz__shHero_{{ section.id }}">
+  <div class="hz__shHeroInner {{ section.settings.content_width }}">
+    {% if section.settings.img_desk != blank
+      or section.settings.video_desk != blank
+      or section.settings.img_mob != blank
+      or section.settings.video_mob != blank
+    %}
+      <div class="hz__shHero__media">
+        <div class="hz__shHeroMedia_inner {% if section.settings.video_mob != blank or section.settings.img_mob != blank %} hz__shHero__mediaDesk{% endif %}">
+          {% if section.settings.video_desk != blank %}
+            <video muted loop preload="metadata">
+              <source type="video/mp4" src="{{ section.settings.video_desk }}">
+            </video>
+          {% elsif section.settings.img_desk != blank %}
+            <img src="{{ section.settings.img_desk | img_url: '4000x' }}">
+          {% endif %}
+        </div>
+        <div class="hz__shHeroMedia_inner {% if section.settings.video_desk != blank or section.settings.img_desk != blank %} hz__shHero__mediaMob{% endif %}">
+          {% if section.settings.video_mob != blank %}
+            <video muted loop preload="metadata">
+              <source type="video/mp4" src="{{ section.settings.video_mob }}">
+            </video>
+          {% elsif section.settings.img_mob != blank %}
+            <img src="{{ section.settings.img_mob | img_url: '4000x' }}">
+          {% endif %}
+        </div>
+        <!-- ============== CONTENT ================ -->
+        <div class="hz__shHero__content">
+          <div class="hz__shHeroContent_inner">
+            <h2 class="hz__shHero__title hz__titlePrimary" style="color: {{ section.settings.clr }}">
+              {{ section.settings.title }}
+            </h2>
+            <p class="hz__shHero__subtext hz__subtext" style="color: {{ section.settings.clr }}">
+              {{ section.settings.subtext }}
+            </p>
+            <div class="hz__shHero__btnWrap">
+              {% render 'hzBtn', section: section, class: 'hz__shHero__btn hz__btnPri' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"#fff"
+    },
+    {
+      "type": "header",
+      "content": "Section Media",
+      "info": "Videos will take priority over images, if not left blank."
+    },
+    {
+      "type": "url",
+      "label": "Paste Video URL - Desktop",
+      "id": "video_desk"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image - Desktop",
+      "id": "img_desk"
+    },
+    {
+      "type": "url",
+      "label": "Paste Video URL - Mobile",
+      "id": "video_mob"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image - Mobile",
+      "id": "img_mob"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Add Title"
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Subtext",
+      "id": "subtext",
+      "default":"Add Text"
+    },
+    {
+      "type": "header",
+      "content": "Button Controls"
+    },
+    {
+      "type": "url",
+      "label": "Button URL",
+      "id": "url"
+    },
+    {
+      "type": "text",
+      "label": "Button Label",
+      "id": "label",
+      "default":"SHOP NOW"
+    },
+    {
+      "type": "header",
+      "content": "Button Layout Controls"
+    },
+    {
+      "type": "range",
+      "label": "Rounded Corners",
+      "id": "border_radius",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "label": "Underline",
+      "id": "underline",
+      "default":false
+    },
+    {
+      "type": "header",
+      "content": "Button Colors Controls - Default"
+    },
+    {
+      "type": "color",
+      "label": "Button Background",
+      "id": "bg_pri",
+      "default":"#000"
+    },
+    {
+      "type": "color",
+      "label": "Button Label",
+      "id": "label_pri",
+      "default": "#FFF"
+    },
+    {
+      "type": "color",
+      "label": "Button Borders",
+      "id": "borders_pri",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Button Colors Controls - On Hover"
+    },
+    {
+      "type": "color",
+      "label": "Button Background",
+      "id": "bg_sec",
+      "default":"#fff"
+    },
+    {
+      "type": "color",
+      "label": "Button Label",
+      "id": "label_sec",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "label": "Button Borders",
+      "id": "borders_sec",
+      "default":"transparent"
+    },
+  ],
+  "presets": [
+    {
+      "name": "HZ Hero",
+      "category": "hero"
+    }
+  ]
+}
+{% endschema %}

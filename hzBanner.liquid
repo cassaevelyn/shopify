@@ -1,0 +1,173 @@
+<style>
+  .hz__imageBanner_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    {% if section.settings.viewport %}
+      min-height: 100vh;
+    {% endif %}
+  }
+  .hz__img_banner img{
+    width: 100%;
+    height: auto;
+  }
+  @media only screen and (max-width: 768px){
+    .hz__imageBanner_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+  }
+</style>
+
+<section class="hz__imageBanner hz__imageBanner_{{ section.id }}">
+  <div class="hz__imageBannerInner {{ section.settings.content_width }}">
+    {% if section.settings.banner != blank %}
+      <div class="hz__img_banner">
+        <img src="{{ section.settings.banner | img_url: '4000x' }}">
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Media With Text",
+  "settings": [
+    {
+      "type": "header",
+      "content":  "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__contentWidth_ter"
+        }
+      ],
+      "default":"hz__contentWidth_sec"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 70
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 35
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "banner"
+    },
+    {
+      "type": "checkbox",
+      "label": "Viewport Height",
+      "id": "viewport",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Image Banner",
+      "category": "image"
+    }
+  ]
+}
+{% endschema %}

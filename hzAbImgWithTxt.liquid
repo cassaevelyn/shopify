@@ -1,0 +1,218 @@
+<style>
+  .hz__abImgWtxt_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .hz__abImgTxtBlock__media{
+    pading-top: 42px;
+  }
+  .hz__abImgTxt__blocks_{{ section.id }}{
+    display: flex;
+      {% if section.settings.media_first %}
+        flex-direction: row;
+      {% else %}
+        flex-direction: row-reverse;
+      {% endif %}
+  }
+  .hz__abImgTxtBlock__textContent_{{ section.id }} .hz__abImgTxtBlock__textContentInner{
+    position: absolute;
+    background: {{section.settings.content_bg}};
+    {% if section.settings.media_first %}
+      bottom:{{section.settings.top}}%;
+      right: {{section.settings.hor}}%;
+    {% else %}
+      top:{{section.settings.top}}%;
+      left: {{section.settings.hor}}%;
+      margin-right: auto;
+    {% endif %}
+  }
+  @media only screen and (max-width: 768px){
+    .hz__abImgWtxt_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+  }
+</style>
+
+<section class="hz__abImgWtxt hz__abImgWtxt_{{ section.id }}">
+  <div class="hz__abImgWtxtInner">
+    <div class="hz__abImgTxt__blocks hz__abImgTxt__blocks_{{ section.id }}">
+      <div class="hz__abImgTxtBlock__media">
+        {% if section.settings.img != blank %}
+          <img src="{{ section.settings.img | img_url: '4000x' }}">
+        {% endif %}
+      </div>
+      <div class="hz__abImgTxtBlock__textContent hz__abImgTxtBlock__textContent_{{ section.id }}">
+        <div class="hz__abImgTxtBlock__textContentInner">
+          <h2 class="hz__abImgTxt__title">
+            {{ section.settings.title }}
+          </h2>
+          <p class="hz__abImgTxt__text">
+            {{ section.settings.text }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image With Text",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "img"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Add Title"
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Text",
+      "id": "text",
+      "default":"Text"
+    },
+    {
+      "type": "color",
+      "label": "Text Color",
+      "id": "clr",
+      "default":"#000"
+    },
+    {
+      "type": "color",
+      "label": "Content Background Color",
+      "id": "content_bg",
+      "default":"#fff"
+    },
+    {
+      "type": "checkbox","label": "Show Media First",
+      "id": "media_first",
+      "default":false
+    },
+     {
+      "type": "range",
+      "label": "Adjust Content - Vertical",
+      "id": "top",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "default": 0
+    },
+     {
+      "type": "range",
+      "label": "Adjust Content - Horizontal",
+      "id": "hor",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "default": 0
+    },
+  ],
+  "presets": [
+    {
+      "name": "HZ Image With Text About",
+      "category": "image"
+    }
+  ]
+}
+{% endschema %}

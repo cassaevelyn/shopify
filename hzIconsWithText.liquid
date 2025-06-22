@@ -1,0 +1,280 @@
+<style>
+  .hz__iconsWithText_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  @media only screen and (max-width: 768px){
+    .hz__iconsWithText_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+  }
+</style>
+
+<section class="hz__iconsWithText hz__iconsWithText_{{ section.id }}">
+  <div class="hz__iconsWithTextInner {{ section.settings.content_width }}">
+    <div class="hz__icnsWtxts__header hz__secHeader">
+      <h2 class="hz__icnsWtxts__title hz__titleSecondary" style="color: {{ section.settings.clr1 }}">
+        {{ section.settings.title }}
+      </h2>
+      <p class="hz__icnsWtxts__subtext hz__subtext">
+        {{ section.settings.subtext }}
+      </p>
+    </div>
+    <div class="hz__icnsWtxts__body hz__icwtBlocks_container hz__icwtBlocks_container_{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="hz__icwt__block hz__icwt__block_{{ block.id }}" style="background: {{ section.settings.block_bg }}">
+          <div class="hz__icwtBlock_inner">
+            <div class="hz__icwtBlock__icon">
+              {% if block.settings.icon_svg != blank %}
+                {{ block.settings.icon_svg }}
+              {% elsif block.settings.icon_img != blank %}
+                <img src="{{ block.settings.icon_img | img_url: '4000x' }}">
+              {% endif %}
+            </div>
+            <h4 class="hz__icwtBlock__title hz__titleTertiary" style="color: {{ section.settings.clr }}">
+              {{ block.settings.title }}
+            </h4>
+            <p class="hz__icwtBlock__text hz__textsecondary" style="color: {{ section.settings.clr }}">
+              {{ block.settings.text }}
+            </p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Icons With Text",
+  "settings": [
+    {
+      "type": "header",
+      "content":  "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__contentWidth_ter"
+        }
+      ],
+      "default":"hz__contentWidth_sec"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 62
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 52
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 34
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 15
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Add Title"
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Subtext",
+      "id": "subtext",
+      "default":"Add Text"
+    },
+    {
+      "type": "header",
+      "content": "Colors Controls"
+    },
+    {
+      "type": "color_background",
+      "label": "Blocks Background",
+      "id": "block_bg",
+      "default":"#F4FBFF"
+    },
+    {
+      "type": "color",
+      "label": "Primary Color",
+      "id": "clr1",
+      "default":"#000"
+    },
+    {
+      "type": "color",
+      "label": "Secondary Color",
+      "id": "clr",
+      "default":"#fff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icwt",
+      "name": "Text With Icon",
+      "settings": [
+        {
+          "type": "html",
+          "label": "Paste Icon SVG",
+          "id": "icon_svg",
+          "info": "Icon SVG will be  given priority over icon image."
+        },
+        {
+          "type": "image_picker",
+          "label": "Icon Image",
+          "id": "icon_img"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title",
+          "default":"Add Title"
+        },
+        {
+          "type": "inline_richtext",
+          "label": "Text",
+          "id": "text",
+          "default":"Add Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Icons With Text",
+      "category": "icon with text"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+    mobileOnlySlider(".hz__icwtBlocks_container_{{ section.id }}", true, false, 750);
+
+  function mobileOnlySlider($slidername, $dots, $arrows, $breakpoint) {
+  	var slider = $($slidername);
+  	var settings = {
+  		mobileFirst: true,
+  		dots: $dots,
+  		arrows: $arrows,
+      // nextArrow: $('.hz__ipSliderBtn_next_{{ section.id }}'),
+      // prevArrow: $('.hz__ipSliderBtn_prev_{{ section.id }}'),
+  		responsive: [
+  			{
+  				breakpoint: $breakpoint,
+  				settings: "unslick"
+  			}
+  		]
+  	};
+
+  	slider.slick(settings);
+
+  	$(window).on("resize", function () {
+  		if ($(window).width() > $breakpoint) {
+  			return;
+  		}
+  		if (!slider.hasClass("slick-initialized")) {
+  			return slider.slick(settings);
+  		}
+  	});
+  } // Mobile Only Slider
+</script>

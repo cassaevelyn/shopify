@@ -1,0 +1,441 @@
+<style>
+  .hz__hpProductBlocks_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .hz__hpProductBlocks_{{ section.id }} .hz__btnAtc{
+    background: {{section.settings.bg_pri2}};
+    color: {{section.settings.label_pri2}};
+    border: 1px solid {{section.settings.borders_pri2}};
+    border-radius: {{section.settings.border_radius2}}px;
+    {% if section.settings.underline2 %}
+      text-decoration: underline;
+    {% endif %}
+  }
+  .hz__hpProductBlocks_{{ section.id }} .hz__btnAtc:hover{
+    background: {{section.settings.bg_sec2}};
+    color: {{section.settings.label_sec2}};
+    border: 1px solid {{section.settings.borders_sec2}}
+  }
+  @media only screen and (max-width: 768px){
+    .hz__hpProductBlocks_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+  }
+</style>
+
+<section class="hz__hpProductBlocks hz__hpProductBlocks_{{ section.id }}">
+  <div class="hz__hpProductBlocksInner {{ section.settings.content_width }}">
+    <div class="hz__hpProdBlocks__header">
+      <h2 class="hz__hpProdBlocks__title hz__titleSecondary" style="color: {{ section.settings.clr }}">
+        {{ section.settings.title }}
+      </h2>
+      <p class="hz__hpProdBlocks__subtext hz__subtext" style="color: {{ section.settings.clr }}">
+        {{ section.settings.subtext }}
+      </p>
+    </div>
+    <div class="hz__hpProdBlocks__body">
+      {% if section.settings.collection != blank %}
+        <div class="hz__hpProdBlocks__products hz__hpProdBlocks__products_{{ section.id }}">
+          {% for product in section.settings.collection.products %}
+            <div class="hz__hpProdBlock__product hz__hpProdBlock__product_{{ product.id }}_{{ forloop.index }}">
+              <div class="hz__hppbProduct_inner">
+                <div class="hz__hppbProduct__media" style="background: {{ section.settings.clr2 }}">
+                  <img src="{{ product.featured_image | img_url: '4000x' }}">
+                </div>
+                <div class="hz__hppbProduct__info">
+                  <h4 class="hz__titleTertiary hz__hppbProduct_title" style="color: {{ section.settings.clr }}">
+                    {{ product.title }}
+                  </h4>
+                  <p class="hz__subtext hz__hppbProduct__subtext" style="color: {{ section.settings.clr }}">
+                    {% if section.settings.product_subtext != blank %}
+                      {{ section.settings.product_subtext }}
+                    {% else %}
+                      {{ product.metafields.custom.subtext }}
+                    {% endif %}
+                  </p>
+                  <div class="hz__hppbProduct__rating">
+                    {{ section.settings.stars }}
+                  </div>
+                  <p
+                    class="hz__hppbProduct__pricing hz__prodPrice"
+                    style="color: {{ section.settings.clr }}; background: {{ section.settings.clr2 }}"
+                  >
+                    {{ product.price | money }}
+                  </p>
+                  <div class="hz__hppbProduct__atcForm">
+                    <form method="post" action="/cart/add">
+                      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                      <input min="1" type="hidden" id="quantity" name="quantity" value="1">
+                      <input type="submit" value="{{ section.settings.label2 }}" class="hz__btn hz__btnSec hz__btnAtc">
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    <div class="hz__hpProdBlocks__footer">
+      {% render 'hzBtn', section: section, class: 'hz__hpProdBlock__btn hz__btnQuat' %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Products Blocks",
+  "settings": [
+    {
+      "type": "header",
+      "content":  "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__contentWidth_ter"
+        }
+      ],
+      "default":"hz__contentWidth_sec"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 68
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 70
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 42
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 15
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Add Title"
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Subtext",
+      "id": "subtext",
+      "default":"Add Text"
+    },
+    {
+      "type": "collection",
+      "label": "Pick Collection",
+      "id":"collection"
+    },
+    {
+      "type": "html",
+      "label": "Paste Rating Stars SVG",
+      "id": "stars",
+    },
+    {
+      "type": "text",
+      "label": "Product Tagline",
+      "id": "product_subtext",
+      "default":"Add Product Tagline"
+    },
+    {
+      "type": "header",
+      "content": "Colors Controls"
+    },
+    {
+      "type": "color",
+      "label": "Primary Color",
+      "id": "clr",
+      "default":"#000",
+      "info": "This color applies to text content."
+    },
+    {
+      "type": "color",
+      "label": "Secondary Color",
+      "id": "clr2",
+      "default":"#F4F4F4",
+      "info": "This color applies to content background."
+    },
+    {
+      "type": "header",
+      "content": "Cart Button Controls"
+    },
+    {
+      "type": "text",
+      "label": "Button Label",
+      "id": "label2",
+      "default":"ADD TO CART"
+    },
+    {
+      "type": "header",
+      "content": "Button Layout Controls"
+    },
+    {
+      "type": "range",
+      "label": "Rounded Corners",
+      "id": "border_radius2",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "label": "Underline",
+      "id": "underline2",
+      "default":false
+    },
+    {
+      "type": "header",
+      "content": "Button Colors Controls - Default"
+    },
+    {
+      "type": "color",
+      "label": "Button Background",
+      "id": "bg_pri2",
+      "default":"#000"
+    },
+    {
+      "type": "color",
+      "label": "Button Label",
+      "id": "label_pri2",
+      "default": "#FFF"
+    },
+    {
+      "type": "color",
+      "label": "Button Borders",
+      "id": "borders_pri2",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Button Colors Controls - On Hover"
+    },
+    {
+      "type": "color",
+      "label": "Button Background",
+      "id": "bg_sec2",
+      "default":"#fff"
+    },
+    {
+      "type": "color",
+      "label": "Button Label",
+      "id": "label_sec2",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "label": "Button Borders",
+      "id": "borders_sec2",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Button Controls"
+    },
+    {
+      "type": "url",
+      "label": "Button URL",
+      "id": "url"
+    },
+    {
+      "type": "text",
+      "label": "Button Label",
+      "id": "label",
+      "default":"DISCOVER OUR PRODUCTS"
+    },
+    {
+      "type": "header",
+      "content": "Button Layout Controls"
+    },
+    {
+      "type": "range",
+      "label": "Rounded Corners",
+      "id": "border_radius",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "label": "Underline",
+      "id": "underline",
+      "default":false
+    },
+    {
+      "type": "header",
+      "content": "Button Colors Controls - Default"
+    },
+    {
+      "type": "color",
+      "label": "Button Background",
+      "id": "bg_pri",
+      "default":"transparent"
+    },
+    {
+      "type": "color",
+      "label": "Button Label",
+      "id": "label_pri",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "label": "Button Borders",
+      "id": "borders_pri",
+      "default":"#000"
+    },
+    {
+      "type": "header",
+      "content": "Button Colors Controls - On Hover"
+    },
+    {
+      "type": "color",
+      "label": "Button Background",
+      "id": "bg_sec",
+      "default":"#000"
+    },
+    {
+      "type": "color",
+      "label": "Button Label",
+      "id": "label_sec",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "label": "Button Borders",
+      "id": "borders_sec",
+      "default":"transparent"
+    },
+  ],
+  "presets": [
+    {
+      "name": "AR Products Blocks",
+      "category": "products"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  $('.hz__hpProdBlocks__products_{{ section.id }}').slick({
+    slidesToShow:2,
+    autoplay: false,
+    dots: false,
+    arrows: false,
+    cssEase: 'linear',
+     responsive: [
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: true
+      }
+    }
+  ]
+  });
+</script>

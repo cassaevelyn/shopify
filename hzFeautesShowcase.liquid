@@ -1,0 +1,262 @@
+{{ 'hzFeaturesShowcase.css' | asset_url | stylesheet_tag }}
+<style>
+  .hz__featuresShowcase_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  @media only screen and (max-width: 768px){
+    .hz__featuresShowcase_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+  }
+</style>
+
+<section class="hz__featuresShowcase hz__featuresShowcase_{{ section.id }}">
+  <div class="hz__featuresShowcaseInner">
+    <div class="hz__featShowcase__header">
+      <h2 class="hz__featShowcase__title" style="color: {{ section.settings.clr }}">
+        {{ section.settings.title }}
+      </h2>
+      <p class="hz__featShowcase__subtext" style="color: {{ section.settings.clr }}">
+        {{ section.settings.subtext }}
+      </p>
+    </div>
+    <div class="hz__featShowcase__body">
+      <div class="hz__featShowcase__gridContainer">
+        {% assign temp = section.blocks.size %}
+        {% assign halfway = temp | divided_by: 2 %}
+        {% for block in section.blocks %}
+          {% if forloop.index0 == halfway and section.settings.img != blank %}
+            <div class="hz__featShowcase__centerMedia hz__featShowMedia__mob">
+              <img src="{{ section.settings.img | img_url: '4000x' }}" alt="{{ section.settings.img.alt }}">
+            </div>
+          {% endif %}
+          <div class="hz__featShowcase__row">
+            <div class="hz__featShow__col hz__featShow__colLeft">
+              {% if block.settings.icon1 != blank %}
+                <img src="{{ block.settings.icon1 | img_url: '4000x' }}">
+              {% endif %}
+              <div class="hz__fsCol__content">
+                <h4 class="hz__fsCol__title" style="color: {{ section.settings.clr }}">
+                  {{ block.settings.title1 }}
+                </h4>
+                <p class="hz__fsCol__text" style="color: {{ section.settings.clr }}">
+                  {{ block.settings.text1 }}
+                </p>
+              </div>
+            </div>
+            <div class="hz__featShow__col hz__featShow__colRight">
+              {% if block.settings.icon2 != blank %}
+                <img src="{{ block.settings.icon2 | img_url: '4000x' }}">
+              {% endif %}
+              <div class="hz__fsCol__content">
+                <h4 class="hz__fsCol__title" style="color: {{ section.settings.clr }}">
+                  {{ block.settings.title2 }}
+                </h4>
+                <p class="hz__fsCol__text" style="color: {{ section.settings.clr }}">
+                  {{ block.settings.text2 }}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        {% if section.settings.img != blank %}
+          <div class="hz__featShowcase__centerMedia hz__featShowMedia__desk">
+            <img src="{{ section.settings.img | img_url: '4000x' }}" alt="{{ section.settings.img.alt }}">
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Media With Text",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Content",
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Features Showcase"
+    },
+    {
+      "type": "text",
+      "label": "Subtext",
+      "id": "subtext",
+      "default":"Features & benefits"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "img"
+    },
+    {
+      "type": "header",
+      "content": "Colors Controls"
+    },
+    {
+      "type": "color",
+      "label": "Content Color",
+      "id": "clr",
+      "default":"#000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feaatures_row",
+      "name": "Features Row",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Content Column 1"
+        },
+        {
+          "type": "image_picker",
+          "label": "Icon ",
+          "id": "icon1"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title1",
+          "default":"Add Title"
+        },
+        {
+          "type": "inline_richtext",
+          "label": "Text",
+          "id": "text1",
+          "default":"text"
+        },
+        {
+          "type": "header",
+          "content": "Content Column 2"
+        },
+        {
+          "type": "image_picker",
+          "label": "Icon",
+          "id": "icon2"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title2",
+          "default":"Add Title"
+        },
+        {
+          "type": "inline_richtext",
+          "label": "Text",
+          "id": "text2",
+          "default":"text"
+        },
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Features Showcase",
+      "category": "image"
+    }
+  ]
+}
+{% endschema %}

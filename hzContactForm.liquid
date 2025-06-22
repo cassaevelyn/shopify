@@ -1,0 +1,559 @@
+<style>
+   .hz__contactForm_{{ section.id }}{
+     padding-top: {{section.settings.ptd}}px;
+     padding-bottom: {{section.settings.pbd}}px;
+     padding-left: {{section.settings.plrd}}px;
+     padding-right: {{section.settings.plrd}}px;
+     {% if section.settings.bg_img != blank %}
+       background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+     {% else %}
+       background: {{section.settings.bg_clr}};
+     {% endif %}
+     background-position: center;
+     background-size: cover;
+     background-repeat: no-repeat;
+   }
+  .hz__contactBtn_{{ section.id }}{
+    background: {{section.settings.bg_pri}};
+    color: {{section.settings.label_pri}};
+    border: 1px solid {{section.settings.borders_pri}};
+    border-radius: {{section.settings.border_radius}}px;
+    {% if section.settings.underline %}
+      text-decoration: underline;
+    {% endif %}
+  }
+  .hz__contactBtn_{{ section.id }}:hover{
+    background: {{section.settings.bg_sec}};
+    color: {{section.settings.label_sec}};
+    border: 1px solid {{section.settings.borders_sec}}
+  }
+  .hz__contactBtn.button:not([disabled]):hover:after{
+    box-shadow: none;
+  }
+  .hz__contactBtn:before{
+    box-shadow: none;
+  }
+  .hz__contactForm_{{ section.id }} .field__input{
+    background: {{section.settings.bg2}};
+    border: 1px solid {{section.settings.clr2}};
+  }
+  .hz__contactForm_{{ section.id }} input::placeholder, .hz__contactForm_{{ section.id }} input::-webkit-input-placeholder, .hz__contactForm_{{ section.id }} textarea::placeholder, .hz__contactForm_{{ section.id }} textarea::-webkit-input-placeholder{
+    color: #555656;
+    font-family: Chillax;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 1;
+  }
+   @media only screen and (max-width: 768px){
+     .hz__contactForm_{{ section.id }}{
+       padding-top: {{section.settings.ptm}}px;
+       padding-bottom: {{section.settings.pbm}}px;
+       padding-left: {{section.settings.plrm}}px;
+       padding-right: {{section.settings.plrm}}px;
+     }
+   }
+  .hz__contactBtn{
+    padding: 17px 31px;
+    border-radius: 10px;
+    font-family: 'Chillax';
+    text-transform: uppercase;
+    font-weight: 600;
+    height: 70px;
+    font-size: 24px;
+    min-height: unset;
+    max-height: unset;
+  }
+  .hz__contactForm__blocks{
+    display: flex;
+    align-items: start;
+    gap: 60px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+   .hz__contactForm__title{
+     color: #000;
+     font-family: Chillax;
+     font-size: 48px;
+     font-style: normal;
+     font-weight: 600;
+     line-height: normal;
+     margin: 0;
+     letter-spacing: normal;
+     margin: 0 0 10px;
+   }
+   .hz__contactForm_text{
+     display: flex;
+     flex-direction: column;
+     gap: 22px;
+     max-width: 630px;
+     width: calc(47% - 30px);
+     padding-top: 5px;
+   }
+  .hz__contactForm_text , .hz__contactForm_text * {
+     color: #000;
+     font-family: Lexend;
+     font-size: 20px;
+     font-style: normal;
+     font-weight: 400;
+     line-height: normal;
+     text-transform: capitalize;
+    letter-spacing: normal;
+    margin: 0;
+   }
+  .hz__contactForm_text *:not(p){
+    margin-top: 16px;
+    font-weight: 600;
+  }
+  .hz__contactForm_text *{
+    color: inherit;
+  }
+  .hz__contactForm_form{
+    width: calc(53% - 30px);
+    max-width: 792px;
+    padding: 65px 20px 65px 40px;
+    border-radius: 10px;
+  }
+  .hz__cfContant_form{
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .hz__contactForm_form .contact__button{
+    margin-top: 0;
+  }
+  .hz__contactForm_form .field__input, .hz__contactForm_form .customer .field input{
+    border-radius: 10px;
+    padding: 18px 30px;
+    height: 70px;
+    color: #000;
+    font-family: Chillax;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .hz__contactForm_form .field:after, .hz__contactForm_form .field:after{
+    box-shadow: none;
+  }
+  .hz__contactForm_form .text-area{
+    min-height: 184px;
+  }
+  .hz__contactForm_form .contact__fields {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 2rem;
+    }
+  .hz__contactForm_form{}
+  @media only screen and (max-width: 1300px){
+    .hz__contactForm_form{
+      padding: 50px 30px;
+    }
+  }
+  @media only screen and (max-width: 1200px){
+    .hz__contactForm_form, .hz__contactForm_text{
+      width: 100%;
+      max-width: 100%;
+    }
+    .hz__contactForm__title{
+      margin: 0 0 20px;
+      text-align: center;
+      font-size: 44px;
+    }
+
+  }
+  @media only screen and (max-width: 992px){
+    .hz__contactForm__title{
+      font-size: 38px;
+    }
+    .hz__contactForm_text, .hz__contactForm_text *{
+      font-size: 18px;
+    }
+    .hz__contactForm_form .field__input, .hz__contactForm_form .customer .field input{
+      font-size: 20px;
+    }
+    .hz__contactForm_{{ section.id }} input::placeholder, .hz__contactForm_{{ section.id }} input::-webkit-input-placeholder, .hz__contactForm_{{ section.id }} textarea::placeholder, .hz__contactForm_{{ section.id }} textarea::-webkit-input-placeholder{
+      font-size: 20px;
+     }
+  }
+  @media only screen and (max-width: 768px){
+    .hz__contactForm_form .contact__fields{
+      gap: 15px;
+      grid-template-columns:1fr;
+    }
+    .hz__contactForm_text{
+      gap: 18px;
+    }
+    .hz__contactForm_text, .hz__contactForm_text *{
+      font-size: 16px;
+    }
+    .hz__contactForm__title{
+      font-size: 30px;
+    }
+    .hz__cfContant_form{
+      gap: 15px;
+    }
+    .hz__contactForm_form .field__input, .hz__contactForm_form .customer .field input{
+      padding: 14px 30px;
+      height: 60px;
+      font-size: 16px;
+    }
+    .hz__contactForm_{{ section.id }} input::placeholder, .hz__contactForm_{{ section.id }} input::-webkit-input-placeholder, .hz__contactForm_{{ section.id }} textarea::placeholder, .hz__contactForm_{{ section.id }} textarea::-webkit-input-placeholder{
+      font-size: 16px;
+     }
+    .hz__contactBtn{
+      height: 60px;
+    }
+  }
+  @media only screen and (max-width: 600px){
+    .hz__contactForm_text, .hz__contactForm_text *{
+      font-size: 14px;
+    }
+    .hz__contactForm__title{
+      font-size: 24px;
+    }
+    .hz__contactForm_form{
+      padding: 38px 38px 72px 24px;
+    }
+    .hz__contactForm_form .field__input, .hz__contactForm_form .customer .field input{
+      padding: 10px 30px;
+      height: 40px;
+      font-size: 14px;
+    }
+    .hz__contactForm_{{ section.id }} input::placeholder, .hz__contactForm_{{ section.id }} input::-webkit-input-placeholder, .hz__contactForm_{{ section.id }} textarea::placeholder, .hz__contactForm_{{ section.id }} textarea::-webkit-input-placeholder{
+      font-size: 14px;
+     }
+    .hz__contactBtn{
+      height: 46px;
+    }
+  }
+</style>
+
+<section class="hz__contactForm hz__contactForm_{{ section.id }}">
+  <div class="hz__contactFormInner {{ section.settings.content_width }}">
+    <h2 class="hz__contactForm__title" style="color: {{ section.settings.clr }}">{{ section.settings.title }}</h2>
+    <div class="hz__contactForm__blocks">
+      <div class="hz__contactForm_block hz__contactForm_text" style="color: {{ section.settings.clr }}">
+        {{ section.settings.text }}
+      </div>
+      <div
+        class="hz__contactForm_block hz__contactForm_form"
+        style="border:1px solid {{ section.settings.clr2 }}; background: {{ section.settings.bg1 }}"
+      >
+        {%- form 'contact', id: 'ContactForm', class: 'hz__cfContant_form' -%}
+          {%- if form.posted_successfully? -%}
+            <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
+              {{- 'icon-success.svg' | inline_asset_content -}}
+              {{ 'templates.contact.form.post_success' | t }}
+            </h2>
+          {%- elsif form.errors -%}
+            <div class="form__message">
+              <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
+                {{- 'icon-error.svg' | inline_asset_content -}}
+                {{ 'templates.contact.form.error_heading' | t }}
+              </h2>
+            </div>
+            <ul class="form-status-list caption-large" role="list">
+              <li>
+                <a href="#ContactForm-email" class="link">
+                  {{ form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email }}
+                </a>
+              </li>
+            </ul>
+          {%- endif -%}
+          <div class="contact__fields">
+            <div class="field">
+              <input
+                class="field__input"
+                autocomplete="name"
+                type="text"
+                id="ContactForm-name"
+                name="contact[{{ 'templates.contact.form.name' | t }}]"
+                value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                placeholder="{{ 'templates.contact.form.name' | t }}"
+              >
+              <!--
+                <label class="field__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
+              -->
+            </div>
+            <div class="field field--with-error">
+              <input
+                autocomplete="email"
+                type="email"
+                id="ContactForm-email"
+                class="field__input"
+                name="contact[email]"
+                spellcheck="false"
+                autocapitalize="off"
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                aria-required="true"
+                {% if form.errors contains 'email' %}
+                  aria-invalid="true"
+                  aria-describedby="ContactForm-email-error"
+                {% endif %}
+                placeholder="{{ 'templates.contact.form.email' | t }}"
+              >
+              <!--
+                <label class="field__label" for="ContactForm-email">
+                  {{- 'templates.contact.form.email' | t }}
+                  <span aria-hidden="true">*</span></label
+                >
+              -->
+              {%- if form.errors contains 'email' -%}
+                <small class="contact__field-error" id="ContactForm-email-error">
+                  <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                  <span class="form__message">
+                    <span class="svg-wrapper">
+                      {{- 'icon-error.svg' | inline_asset_content -}}
+                    </span>
+                    {{- form.errors.translated_fields.email | capitalize }}
+                    {{ form.errors.messages.email -}}
+                  </span>
+                </small>
+              {%- endif -%}
+            </div>
+          </div>
+          <!--
+            <div class="field">
+              <input
+                type="tel"
+                id="ContactForm-phone"
+                class="field__input"
+                autocomplete="tel"
+                name="contact[{{ 'templates.contact.form.phone' | t }}]"
+                pattern="[0-9\-]*"
+                value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+                placeholder="{{ 'templates.contact.form.phone' | t }}"
+              >
+              <label class="field__label" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
+            </div>
+          -->
+          <div class="field">
+            <textarea
+              rows="10"
+              id="ContactForm-body"
+              class="text-area field__input"
+              name="contact[{{ 'templates.contact.form.comment' | t }}]"
+              placeholder="{{ 'templates.contact.form.comment' | t }}"
+            >
+          {{- form.body -}}
+        </textarea>
+            <!--
+              <label class="form__label field__label" for="ContactForm-body">
+                {{- 'templates.contact.form.comment' | t -}}
+              </label>
+            -->
+          </div>
+          <div class="contact__button">
+            <button type="submit" class="button hz__contactBtn hz__contactBtn_{{ section.id }} hz__btn">
+              {{ 'templates.contact.form.send' | t }}
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": [
+    {
+      "type": "header",
+      "content":  "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__contentWidth_ter"
+        }
+      ],
+      "default":"hz__contentWidth_sec"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default":16
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default":200
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 42
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 52
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 35
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Title"
+    },
+    {
+      "type": "richtext",
+      "label": "Text",
+      "id": "text",
+      "default":"<p>Add Text</p>"
+    },
+    {
+      "type": "color",
+      "label": "Content Color",
+      "id": "clr",
+      "default":"#000"
+    },
+    {
+      "type": "color",
+      "label": "Borders Color",
+      "id": "clr2",
+      "default":"#628BD3"
+    },
+    {
+      "type": "header",
+      "content": "Button Colors Controls - Default"
+    },
+    {
+      "type": "color",
+      "label": "Button Background",
+      "id": "bg_pri",
+      "default":"#20AEFF"
+    },
+    {
+      "type": "color",
+      "label": "Button Label",
+      "id": "label_pri",
+      "default": "#FFF"
+    },
+    {
+      "type": "color",
+      "label": "Button Borders",
+      "id": "borders_pri",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Button Colors Controls - On Hover"
+    },
+    {
+      "type": "color",
+      "label": "Button Background",
+      "id": "bg_sec",
+      "default":"#fff"
+    },
+    {
+      "type": "color",
+      "label": "Button Label",
+      "id": "label_sec",
+      "default": "#20AEFF"
+    },
+    {
+      "type": "color",
+      "label": "Button Borders",
+      "id": "borders_sec",
+      "default":"#20AEFF"
+    },
+    {
+      "type": "color",
+      "label": "Form Background",
+      "id": "bg1",
+      "default":"#F4FBFF"
+    },
+    {
+      "type": "color",
+      "label": "Fields Background",
+      "id": "bg2",
+      "default":"#D6F0FF"
+    },
+  ],
+  "presets": [
+    {
+      "name": "HZ Contact Form",
+      "category": "coontact"
+    }
+  ]
+}
+{% endschema %}

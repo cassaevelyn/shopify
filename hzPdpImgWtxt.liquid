@@ -1,0 +1,215 @@
+<style>
+  .hz__pdpImgWtxt_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  @media only screen and (max-width: 768px){
+    .hz__pdpImgWtxt_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+  }
+</style>
+
+<section class="hz__pdpImgWtxt hz__pdpImgWtxt_{{ section.id }}">
+  <div class="hz__pdpImgWtxtInner {{ section.settings.content_width }}">
+    <div class="hz__pdpImgWtxt__blocks">
+      <div class="hz__pdpImgWtxt__block hz__pdpiwtBlock__content" style="background: {{ section.settings.content_bg }}">
+        <div class="hz__pdpiwtContent_inner">
+          <h2 class="hz__pdpIwtContent__title" style="color: {{ section.settings.clr }}">
+            {{ section.settings.title }}
+          </h2>
+          <div class="hz__pdpIwtContent__text" style="color: {{ section.settings.clr }}">
+            {{ section.settings.text }}
+          </div>
+        </div>
+      </div>
+      <div class="hz__pdpImgWtxt__block hz__pdpiwtBlock__media">
+        <div class="hz__pdpiwtMedia_inner">
+          {% if section.settings.video != blank %}
+            <video autoplay playsinline muted loop preload="metadata">
+              <source type="video/mp4" src="{{ section.settings.video }}">
+            </video>
+          {% elsif section.settings.img != blank %}
+            <img src="{{ section.settings.img | img_url: '4000x' }}" alt="{{ section.settings.img.alt }}">
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Media With Text",
+  "settings": [
+    {
+      "type": "header",
+      "content":  "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__contentWidth_ter"
+        }
+      ],
+      "default":"hz__contentWidth_sec"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "img"
+    },
+    {
+      "type": "url",
+      "label": "Paste Video URL",
+      "id": "video"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default": "Add Title"
+    },
+    {
+      "type": "richtext",
+      "label": "Text",
+      "id": "text",
+      "default":"<p>Add Text</p>"
+    },
+    {
+      "type": "color_background",
+      "label": "Content Background",
+      "id": "content_bg",
+      "default":"#E5F4FF"
+    },
+    {
+      "type": "color",
+      "label": "Content Color",
+      "id": "clr",
+      "default":"#79CAFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Image With Text Product",
+      "category": "image with text"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  document.querySelector('.hz__pdpImgWtxt_{{ section.id }} video').play()
+</script>

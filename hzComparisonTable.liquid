@@ -1,0 +1,361 @@
+<style>
+  .hz__comparisonTable_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  @media only screen and (max-width: 768px){
+    .hz__comparisonTable_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+  }
+</style>
+
+<section class="hz__comparisonTable hz__comparisonTable_{{ section.id }}">
+  <div class="hz__comparisonTableInner {{ section.settings.content_width }}">
+    <div class="hz__compareTab__header">
+      <h2 class="hz__compareTab__title" style="color: {{ section.settings.clr }}">
+        {{ section.settings.title }}
+      </h2>
+    </div>
+    <div class="hz__compareTab__body">
+      <div class="hz__compareTab__table" style="border: 1px solid {{ section.settings.pri_clr }}">
+        <div
+          class="hz__ctTable__header"
+          style="background: {{ section.settings.sec_clr }}; border-bottom: 1px solid {{ section.settings.pri_clr }}"
+        >
+          <div class="hz__compareTab__row hz__compTab__headRow">
+            <div class="hz__compareTab__col hz__compareTab__col1">
+              <h4 class="hz__ctTab__colTitle" style="color: {{ section.settings.pri_clr }}">
+                {{ section.settings.col_title1 }}
+              </h4>
+            </div>
+            <div class="hz__compareTab__col hz__compareTab__col2">
+              <h4 class="hz__ctTab__colTitle" style="color: {{ section.settings.pri_clr }}">
+                {{ section.settings.col_title2 }}
+              </h4>
+            </div>
+            <div class="hz__compareTab__col hz__compareTab__col3">
+              <h4 class="hz__ctTab__colTitle" style="color: {{ section.settings.pri_clr }}">
+                {{ section.settings.col_title3 }}
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="hz__ctTable__body">
+          {% for block in section.blocks %}
+            <div
+              class="hz__compareTab__row hz__compTab__bodyRow"
+              style="{% unless forloop.last %}border-bottom: 1px solid {{ section.settings.ter_clr }};{% endunless %}"
+            >
+              <div class="hz__compareTab__col hz__compareTab__col1">
+                <h5 class="hz__ctTabRow_bTitle" style="color: {{ section.settings.pri_clr }}">
+                  {{ block.settings.title }}
+                </h5>
+              </div>
+              <div class="hz__compareTab__col hz__compareTab__col2">
+                <div class="hz__compareTabCol_inner">
+                  {% unless block.settings.icon1 == 'none' %}
+                    <div class="hz__ctTabRow__icon">
+                      {% if block.settings.icon1 == 'true' %}
+                        {{ section.settings.tick_svg }}
+                      {% else %}
+                        {{ section.settings.corss_svg }}
+                      {% endif %}
+                    </div>
+                  {% endunless %}
+                  <p class="hz__ctTabRow_bText" style="color: {{ section.settings.pri_clr }}">
+                    {{ block.settings.others }}
+                  </p>
+                </div>
+              </div>
+              <div class="hz__compareTab__col hz__compareTab__col3">
+                <div class="hz__compareTabCol_inner">
+                  {% unless block.settings.icon2 == 'none' %}
+                    <div class="hz__ctTabRow__icon">
+                      {% if block.settings.icon2 == 'true' %}
+                        {{ section.settings.tick_svg }}
+                      {% else %}
+                        {{ section.settings.corss_svg }}
+                      {% endif %}
+                    </div>
+                  {% endunless %}
+                  <p class="hz__ctTabRow_bText" style="color: {{ section.settings.pri_clr }}">
+                    {{ block.settings.brand }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "settings": [
+    {
+      "type": "header",
+      "content":  "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__contentWidth_ter"
+        }
+      ],
+      "default":"hz__contentWidth_sec"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 15
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Comparison Table"
+    },
+    {
+      "type": "header",
+      "content": "Table Header"
+    },
+    {
+      "type": "text",
+      "label": "Column 1 Title",
+      "id": "col_title1",
+      "default":"Feature"
+    },
+    {
+      "type": "text",
+      "label": "Column 2 Title",
+      "id": "col_title2",
+      "default":"Others"
+    },
+    {
+      "type": "text",
+      "label": "Column 3 Title",
+      "id": "col_title3",
+      "default":"Brand"
+    },
+    {
+      "type": "color",
+      "label": "Primary Color",
+      "id": "pri_clr",
+      "default":"#000"
+    },
+    {
+      "type": "color",
+      "label": "Tertiary Color",
+      "id": "ter_clr",
+      "default":"#CCC9C9"
+    },
+    {
+      "type": "color",
+      "label": "Secondary Color",
+      "id": "sec_clr",
+      "default":"#F4F4F4"
+    },
+    {
+      "type": "html",
+      "label": "Paste Tick Icon SVG",
+      "id": "tick_svg"
+    },
+    {
+      "type": "html",
+      "label": "Cross SVG",
+      "id": "corss_svg"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Comparison Row",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Row Title",
+          "id": "title",
+          "default":"Title"
+        },
+        {
+          "type":"header",
+          "content": "Column 2 Content"
+        },
+        {
+          "type": "select",
+          "options": [
+            {
+              "label": "True",
+              "value": "true"
+            },
+            {
+              "label": "False",
+              "value": "false"
+            },
+            {
+              "label": "None",
+              "value":"none"
+            }
+          ],
+          "label": "Icon",
+          "id": "icon1",
+          "default": "false"
+        },
+        {
+          "type": "text",
+          "label": "Text",
+          "id": "others",
+          "default":"Add Text"
+        },
+        {
+          "type":"header",
+          "content": "Column 3 Content"
+        },
+        {
+          "type": "text",
+          "label": "Text",
+          "id": "brand",
+          "default":"Add Text"
+        },
+        {
+          "type": "select",
+          "options": [
+            {
+              "label": "True",
+              "value": "true"
+            },
+            {
+              "label": "False",
+              "value": "false"
+            },
+            {
+              "label": "None",
+              "value":"none"
+            }
+          ],
+          "label": "Icon",
+          "id": "icon2",
+          "default": "true"
+        },
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HZ Comparison Table",
+      "category": "comparison"
+    }
+  ]
+}
+{% endschema %}

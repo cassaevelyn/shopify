@@ -1,0 +1,265 @@
+<style>
+  .hz__iwtCta_{{ section.id }}{
+    padding-top: {{section.settings.ptd}}px;
+    padding-bottom: {{section.settings.pbd}}px;
+    padding-left: {{section.settings.plrd}}px;
+    padding-right: {{section.settings.plrd}}px;
+    {% if section.settings.bg_img != blank %}
+      background: url('{{ section.settings.bg_img |img_url: '4000x'}}');
+    {% else %}
+      background: {{section.settings.bg_clr}};
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  @media only screen and (max-width: 768px){
+    .hz__iwtCta_{{ section.id }}{
+      padding-top: {{section.settings.ptm}}px;
+      padding-bottom: {{section.settings.pbm}}px;
+      padding-left: {{section.settings.plrm}}px;
+      padding-right: {{section.settings.plrm}}px;
+    }
+  }
+</style>
+
+<section class="hz__iwtCta hz__iwtCta_{{ section.id }}">
+  <div class="hz__iwtCtaInner {{ section.settings.content_width }}">
+    <div class="hz__iwtCta__blocks">
+      <div class="hz__iwtCta__block hz__iwtCta__content">
+        <h2 class="hz__iwtCta__title" style="color: {{ section.settings.clr }}">
+          {{ section.settings.title }}
+        </h2>
+        <div class="hz__iwtCta__ctaBtn">
+          {% render 'hzBtn', section: section, class: 'hz__ctaBtn' %}
+        </div>
+      </div>
+      <div class="hz__iwtCta__block hz__iwtCta__media">
+        {% if section.settings.img != blank %}
+          <img src="{{ section.settings.img | img_url: '4000x' }}">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA With Image & Text",
+  "settings": [
+    {
+      "type": "header",
+      "content":  "Section Content Width"
+    },
+    {
+      "type": "select",
+      "label": "Content Width",
+      "id": "content_width",
+      "options": [
+        {
+          "label": "Large",
+          "value": "hz__contentWidth_pri"
+        },
+        {
+          "label": "Medium",
+          "value": "hz__contentWidth_sec"
+        },
+        {
+          "label": "Small",
+          "value": "hz__contentWidth_ter"
+        }
+      ],
+      "default":"hz__contentWidth_sec"
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Desktop"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbd",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 42
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrd",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding Controls - Mobile"
+    },
+    {
+      "type": "range",
+      "label": "Padding Top",
+      "id": "ptm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "pbm",
+      "unit": "px",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "label": "Padding Left & Right",
+      "id": "plrm",
+      "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 35
+    },
+    {
+     "type": "header",
+     "content": "Section Background",
+     },
+     {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bg_img"
+    },
+    {
+      "type": "color_background",
+      "label": "Background Color",
+      "id": "bg_clr",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "image_picker",
+      "label": "Image",
+      "id": "img"
+    },
+    {
+      "type": "text",
+      "label": "Title",
+      "id": "title",
+      "default":"Add Title"
+    },
+    {
+      "type": "color",
+      "label": "Color",
+      "id": "clr",
+      "default":"#000"
+    },
+    {
+      "type": "header",
+      "content": "Button Controls"
+    },
+    {
+      "type": "url",
+      "label": "Button URL",
+      "id": "url"
+    },
+    {
+      "type": "text",
+      "label": "Button Label",
+      "id": "label",
+      "default":"Try Now"
+    },
+    {
+      "type": "header",
+      "content": "Button Layout Controls"
+    },
+    {
+      "type": "range",
+      "label": "Rounded Corners",
+      "id": "border_radius",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "label": "Underline",
+      "id": "underline",
+      "default":false
+    },
+    {
+      "type": "header",
+      "content": "Button Colors Controls - Default"
+    },
+    {
+      "type": "color",
+      "label": "Button Background",
+      "id": "bg_pri",
+      "default":"#000"
+    },
+    {
+      "type": "color",
+      "label": "Button Label",
+      "id": "label_pri",
+      "default": "#FFF"
+    },
+    {
+      "type": "color",
+      "label": "Button Borders",
+      "id": "borders_pri",
+      "default":"transparent"
+    },
+    {
+      "type": "header",
+      "content": "Button Colors Controls - On Hover"
+    },
+    {
+      "type": "color",
+      "label": "Button Background",
+      "id": "bg_sec",
+      "default":"#fff"
+    },
+    {
+      "type": "color",
+      "label": "Button Label",
+      "id": "label_sec",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "label": "Button Borders",
+      "id": "borders_sec",
+      "default":"transparent"
+    },
+  ],
+  "presets": [
+    {
+      "name": "HZ CTA with Image Text",
+      "category": "CTA, IMAGE"
+    }
+  ]
+}
+{% endschema %}
